@@ -1,0 +1,14 @@
+<div class="timelines-group" >
+    <div class="timelinesHeaders">
+    	<div ng-repeat="timeline in data" class="timeline-part timeline-header" id="{{timeline.guid}}">
+			<span class="timeline-header-track">{{timeline.name}}</span>
+		</div>
+    </div>
+    <div class="timelinesContainer">
+		<div ng-repeat="timeline in data" class="timeline-part timeline" id="{{timeline.guid}}">
+			<div class="timeline-content">
+				<div class="timeline-event {{event.class}}" ng-repeat="event in timeline.events" ng-click="alert();" style="left:{{event.start}}px;width:{{event.start+event.duration}}px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
