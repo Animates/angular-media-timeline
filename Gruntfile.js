@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-karma');
 
 	/**
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
 				build: {
 					files:  {},
 					src:    'timeline.js',
-					dest:   'timeline.min.js'
+					dest:   'dist/js/timeline.min.js'
 				}
 			},
 			less: {
@@ -93,15 +94,19 @@ module.exports = function(grunt) {
 					options: {
 					},
 					files: {
-						"main.css": "_base.less",
-						"timeline.css": "_timeline.less"
+						"dist/styles/timeline.css": "timeline.less"
 					}
+				}
+			},
+			copy: {
+				dist : {
+					files : [{ expand: true, src: ['timeline.js'], dest: 'dist/js/' }]
 				}
 			},
 			cssmin: {
 				dev: {
-					src: ['timeline.css'],
-					dest: 'timeline.min.css'
+					src: ['dist/styles/timeline.css'],
+					dest: 'dist/styles/timeline.min.css'
 				}
 			}/*,
 			karma: {
@@ -120,7 +125,7 @@ module.exports = function(grunt) {
 		*/
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
-		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build']);
+		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
 	
 	}
 	init({});		//initialize here for defaults (init may be called again later within a task)
