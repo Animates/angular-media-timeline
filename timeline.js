@@ -23,14 +23,14 @@ TODO
 'use strict';
 
 angular.module('animates.angular-timeline' , [])
-	.directive('animatesTimelinesGroup', function () {
+	.directive('animatesTimelines', function () {
 		return {
 			restrict: 'E',
 			templateUrl : '/templates/timelines.html',
 			scope: {
-		      data: '='
-		    },
-		    controller: function($scope) {
+				data: '='
+			},
+			controller: function($scope) {
 			}
 		};
 	});
