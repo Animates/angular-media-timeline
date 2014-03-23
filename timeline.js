@@ -26,7 +26,9 @@ angular.module('animates.angular-timeline' , [])
 	.directive('animatesTimelines', function () {
 		return {
 			restrict: 'E',
-			template : "<div class='timelines-group' >" +
+			template : "<input ng-model='currentTick'></input>" +	
+						"<span>{{currentTick}}</input>" +	
+						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' id='{{timeline.guid}}'>" +
 									"<span class='timeline-header-track'>{{timeline.name}}</span>" +
@@ -35,7 +37,7 @@ angular.module('animates.angular-timeline' , [])
 							"<div class='timelinesContainer'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline' id='{{timeline.guid}}'>" +
 									"<div class='timeline-content'>" +
-										"<div class='timeline-event {{event.class}}' ng-repeat='event in timeline.events' ng-click='alert();' style='left:{{event.start}}px;width:{{event.start+event.duration}}px;'></div>" +
+										"<div class='timeline-event {{event.class}}' ng-repeat='event in timeline.events' ng-click='alert();' style='left:{{event.start}}px;width:{{event.duration}}px;'></div>" +
 									"</div>" +
 								"</div>" +
 							"</div>" +
@@ -44,6 +46,10 @@ angular.module('animates.angular-timeline' , [])
 				data: '='
 			},
 			controller: function($scope) {
+				$scope.currentTick = 0;
+				$scope.$watch('currentTick', function (newVal, oldVal) {
+					$scope.$emit('currentTickChanged', newVal);
+				})
 			}
 		};
 	});
