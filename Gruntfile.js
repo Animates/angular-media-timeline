@@ -126,6 +126,7 @@ module.exports = function(grunt) {
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
 		grunt.registerTask('package', ['less:development', 'cssmin', 'uglify:build', 'copy:dist']);
+		grunt.registerTask('build', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
 		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
 	
 	}
