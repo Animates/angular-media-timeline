@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 						src: ['**.js']
 					}
 				},
-				build:{ 
+				build:{
 					options: {
 						reporter: 'jslint',
 						reporterOutput: 'build/output/jshint-result.xml',
