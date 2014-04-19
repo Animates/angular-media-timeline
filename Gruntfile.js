@@ -77,6 +77,16 @@ module.exports = function(grunt) {
 					files: {
 						src: ['**.js']
 					}
+				},
+				build:{ 
+					options: {
+						reporter: require('jslint'),
+						reporterOutput = 'build/output/jshint.result'.
+						force:	true,
+						ignores: ['**.min.js']
+					},
+					files: {
+						src: ['**.js']
 				}
 			},
 			uglify: {
@@ -126,7 +136,7 @@ module.exports = function(grunt) {
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
 		grunt.registerTask('package', ['less:development', 'cssmin', 'uglify:build', 'copy:dist']);
-		grunt.registerTask('ci-build', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
+		grunt.registerTask('ci-build', ['jshint:build', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
 		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
 	
 	}

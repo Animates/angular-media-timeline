@@ -49,7 +49,7 @@ angular.module('animates.angular-timeline' , [])
 				$scope.currentTick = 0;
 				$scope.$watch('currentTick', function (newVal, oldVal) {
 					$scope.$emit('currentTickChanged', newVal);
-				})
+				});
 			}
 		};
 	});
