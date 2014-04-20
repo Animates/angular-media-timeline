@@ -26,7 +26,7 @@ angular.module('animates.angular-timeline' , [])
 	.directive('animatesTimelines', function () {
 		return {
 			restrict: 'E',
-			template : "<input ng-model='currentTick'></input>" +	
+			template : "<input type='number' ng-model='currentTick'></input>" +	
 						"<span>{{currentTick}}</input>" +	
 						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
