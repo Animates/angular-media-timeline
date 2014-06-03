@@ -76,6 +76,8 @@ var module = angular.module('demo', ['animates.angular-timeline'])
           }
         ];
     
-      $scope.$on('currentTickChanged', function(event, newVal) {console.log(newVal)});
+      $scope.onTickChange = function (newVal, oldVal) {
+        alert(newVal);
+      };
 
     });

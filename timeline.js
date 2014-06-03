@@ -43,12 +43,13 @@ angular.module('animates.angular-timeline' , [])
 							"</div>" +
 						"</div>",
 			scope: {
-				data: '='
+				data: '=',
+				tickchange: "&"
 			},
 			controller: function($scope) {
 				$scope.currentTick = 0;
 				$scope.$watch('currentTick', function (newVal, oldVal) {
-					$scope.$emit('currentTickChanged', newVal);
+					$scope.tickchange({'newVal' : newVal, 'oldVal' : oldVal});
 				});
 			}
 		};
