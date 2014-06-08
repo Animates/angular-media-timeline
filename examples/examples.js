@@ -83,6 +83,5 @@ var module = angular.module('demo', ['animates.angular-timeline'])
 
       $scope.changeTick = function (){
         $scope.tick = 100;
-        alert('tick');
       };
     });
