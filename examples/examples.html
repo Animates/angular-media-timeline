@@ -19,7 +19,8 @@
 </head>
 <body ng-app="demo" >
 	<div ng-controller="DemoTimelineGroupCtrl" style="height:100px;">
-		<animates-timelines data="timelines" tickchange="onTickChange(newVal,oldVal);"></animates-timelines>
+		<button ng-click="tick = 100;"></button>
+		<animates-timelines data="timelines" tick="tick" tickchange="onTickChange(newVal,oldVal);"></animates-timelines>
 	</div>
 	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>

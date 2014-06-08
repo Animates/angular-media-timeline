@@ -26,8 +26,8 @@ angular.module('animates.angular-timeline' , [])
 	.directive('animatesTimelines', function () {
 		return {
 			restrict: 'E',
-			template : "<input type='number' ng-model='currentTick'></input>" +	
-						"<span>{{currentTick}}</input>" +	
+			template : "<input type='number' ng-change='tickchange()' ng-model='tick'></input>" +	
+						"<span>{{tick}}</input>" +	
 						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' id='{{timeline.guid}}'>" +
@@ -44,13 +44,10 @@ angular.module('animates.angular-timeline' , [])
 						"</div>",
 			scope: {
 				data: '=',
+				tick: '=',
 				tickchange: "&"
 			},
 			controller: function($scope) {
-				$scope.currentTick = 0;
-				$scope.$watch('currentTick', function (newVal, oldVal) {
-					$scope.tickchange({'newVal' : newVal, 'oldVal' : oldVal});
-				});
 			}
 		};
 	});

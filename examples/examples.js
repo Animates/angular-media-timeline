@@ -2,6 +2,7 @@
 
 var module = angular.module('demo', ['animates.angular-timeline'])
   .controller('DemoTimelineGroupCtrl',  function ($scope) {
+    $scope.tick = 200;
     $scope.timelines = 
         [
           {
@@ -80,4 +81,8 @@ var module = angular.module('demo', ['animates.angular-timeline'])
         alert(newVal);
       };
 
+      $scope.changeTick = function (){
+        $scope.tick = 100;
+        alert('tick');
+      };
     });
