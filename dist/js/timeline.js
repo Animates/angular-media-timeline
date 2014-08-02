@@ -63,8 +63,10 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimeline', function () {
 		return {
 			restrict: 'E',
-			template:	"<animates-timelinepoint ng-repeat='point in data.points' point='point' > </animates-timelinePoint>" +
-								"<animates-timelineevent ng-repeat='event in data.events' evt='event'> </animates-timelineevent>",
+			template:	"<div class='timeline-content'>" +
+									"<animates-timelinepoint ng-repeat='point in data.points' point='point'> </animates-timelinePoint>" +
+									"<animates-timelineevent ng-repeat='event in data.events' evt='event'> </animates-timelineevent>" +
+								"</div>",
 			scope: {
 				data: '=',
 			}
@@ -83,9 +85,7 @@ angular.module('animates.angular-timeline', [])
 							"</div>" +
 							"<div class='timelinesContainer'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline' id='{{timeline.guid}}'>" +
-									"<div class='timeline-content'>" +
-										"<animates-timeline ng-repeat='line in timeline.lines' data='line' >" +
-									"</div>" +
+									"<animates-timeline ng-repeat='line in timeline.lines' data='line' >" +
 								"</div>" +
 							"</div>" +
 						"</div>",
@@ -93,11 +93,6 @@ angular.module('animates.angular-timeline', [])
 				data: '=',
 				tick: '=',
 				tickchange: "&"
-			},
-			controller: function($scope) {
-				$scope.getType = function (line) {
-					return (line.points) ? 'multipoint' : 'events';
-				};
 			}
 		};
 	});

@@ -43,68 +43,74 @@ var module = angular.module('demo', ['animates.angular-timeline'])
                 points :
                 [
                   {
-                    tick : 10,
-                    id : 'guid1',
+                    tick : 24,
+                    id : 'guid7',
                   },
                   {
-                    tick : 210,
-                    id : 'guid2',
+                    tick : 104,
+                    id : 'guid5',
+                  },
+                  {
+                    tick : 250,
+                    id : 'guid6',
                   }
                 ]
               }
             ]
-          }/*,
-          {
+          }, {
             guid : 'timeline2',
             name : 'timeline2-name',
-            events :
-              [
+            lines : [
                 {
-                  name : 'animation3',
-                  start : 100,
-                  duration : 100
-                },
-                {
-                  name : 'animation4',
-                  start : 500,
-                  duration : 450
+                  events :
+                  [
+                    {
+                      name : 'animation3',
+                      start : 100,
+                      duration : 100
+                    },
+                    {
+                      name : 'animation4',
+                      start : 500,
+                      duration : 450
+                    }
+                  ]
+                }, {
+                  name : 'multiAnimation3',
+                  points :
+                  [
+                    {
+                      tick : 10,
+                      id : 'guid3',
+                    },
+                    {
+                      tick : 210,
+                      id : 'guid4',
+                    }
+                  ]
                 }
               ]
-          },
-          {
-            guid : 'timeline3',
-            name : 'timeline3-name',
-            events :
-              [
+            }, {
+              guid : 'timeline4',
+              name : 'timeline4-name',
+              lines : [
                 {
-                  name : 'animation4',
-                  start : 150,
-                  duration : 100
-                },
-                {
-                  name : 'animation5',
-                  start : 500,
-                  duration : 4500
+                  events :
+                  [
+                    {
+                      name : 'animation6',
+                      start : 150,
+                      duration : 100
+                    },
+                    {
+                      name : 'animation7',
+                      start : 500,
+                      duration : 4500
+                    }
+                  ]
                 }
               ]
-          },
-          {
-            guid : 'timeline4',
-            name : 'timeline4-name',
-            events :
-              [
-                {
-                  name : 'animation6',
-                  start : 150,
-                  duration : 100
-                },
-                {
-                  name : 'animation7',
-                  start : 500,
-                  duration : 4500
-                }
-              ]
-          } */
+            }
         ];
 
       $scope.onTickChange = function (newVal, oldVal) {

@@ -42,6 +42,7 @@
   vertical-align: top;
   display: inline-block;
   position: relative;
+  overflow-x: auto;
   width: 100%;
 }
 .timeline-content {
