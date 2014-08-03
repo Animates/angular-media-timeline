@@ -93,7 +93,7 @@ angular.module('animates.angular-timeline', [])
 						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' id='{{timeline.guid}}' rel='{{timeline.guid}}'>" +
-									"<span class='timeline-header-track'>{{timeline.name}}</span>" +
+									"<span class='timeline-header-track' title='{{timeline.name}}'>{{timeline.name}}</span>" +
 								"</div>" +
 							"</div>" +
 							"<div class='timelinesContainer'>" +
@@ -115,7 +115,7 @@ angular.module('animates.angular-timeline', [])
 							var id = angular.element(timeline).attr('rel'),
 								height = angular.element(timeline)[0].offsetHeight;
 
-							element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height + 'px';
+							element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height - 1 + 'px';
 						});
 					});
 				}

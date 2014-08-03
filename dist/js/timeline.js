@@ -41,9 +41,7 @@ angular.module('animates.angular-timeline', [])
 
 							console.log('animatesTimelinepoint');
 						},
-				post : function () {
-					console.log('animatesTimelinepoint-post');
-				}
+				post : function () {}
 			} 
 		};
 	})
@@ -63,8 +61,6 @@ angular.module('animates.angular-timeline', [])
 
 				element.addClass('timeline-event');
 				element.addClass(evt.class);
-
-				console.log('animatesTimelineevent');
 			}
 		};
 	})
@@ -86,8 +82,6 @@ angular.module('animates.angular-timeline', [])
 				if ($scope.data.events) {
 					element.addClass('events');
 				}
-
-				console.log('animatesTimeline');
 			}
 		};
 	})
@@ -99,7 +93,7 @@ angular.module('animates.angular-timeline', [])
 						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' id='{{timeline.guid}}' rel='{{timeline.guid}}'>" +
-									"<span class='timeline-header-track'>{{timeline.name}}</span>" +
+									"<span class='timeline-header-track' title='{{timeline.name}}'>{{timeline.name}}</span>" +
 								"</div>" +
 							"</div>" +
 							"<div class='timelinesContainer'>" +
@@ -116,13 +110,12 @@ angular.module('animates.angular-timeline', [])
 				tickchange: "&"
 			},
 			link : function (scope, element, attrs, ctrl) {
-					console.log('link animate');
 					$timeout(function () {
 						angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline){
 							var id = angular.element(timeline).attr('rel'),
 								height = angular.element(timeline)[0].offsetHeight;
 
-							element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height + 'px';
+							element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height - 1 + 'px';
 						});
 					});
 				}
