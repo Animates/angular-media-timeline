@@ -36,18 +36,19 @@ angular.module('animates.angular-timeline', [])
 			},
 			link:
 			{
-				pre : function ($scope, element, attrs) {
-							element.css({
-								left: $scope.point.tick + 'px'
-							});
-						},
-				post : function ($scope, element, attrs) {
-					var x, originalZIndex;
+				pre: function ($scope, element, attrs) {
+					element.css({
+						left: $scope.point.tick + 'px'
+					});
+				},
+				post: function ($scope, element, attrs) {
+					var point = $scope.point,
+						x, originalZIndex;
 
 					element.on('click', function () {
 							$scope.pointClick({
 								eventData : $scope.eventData,
-								pointData : $scope.point.data
+								pointData : point.data
 							});
 
 							$scope.multiplepointeventSelected({
@@ -65,7 +66,7 @@ angular.module('animates.angular-timeline', [])
 						// Prevent default dragging of selected content
 						event.preventDefault();
 
-						x = event.pageX - $scope.point.tick;
+						x = event.pageX - point.tick;
 						originalZIndex = element.css('z-index');
 
 						element.css({
@@ -79,7 +80,7 @@ angular.module('animates.angular-timeline', [])
 					function elementMove(event) {
 						var newTick = event.pageX - x;
 						if (newTick > 0) {
-							$scope.point.tick = newTick;
+							point.tick = newTick;
 							element.css({
 								left: newTick + 'px'
 							});
@@ -95,8 +96,8 @@ angular.module('animates.angular-timeline', [])
 						});
 
 						$scope.pointMove({
-							pointData : $scope.point.data,
-							newTick : $scope.point.tick
+							pointData : point.data,
+							newTick : point.tick
 						});
 					}
 				}
@@ -106,7 +107,7 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimelineevent', function ($document) {
 		return {
 			restrict: 'E',
-			template:	"",
+			template:	"<span class='left'></span><span class='center'></span><span class='right'></span>",
 			scope: {
 				evt: '=',
 				eventStartchange: "&",
@@ -115,40 +116,64 @@ angular.module('animates.angular-timeline', [])
 			},
 			link: function ($scope, element, attrs) {
 				var evt = $scope.evt,
-					x, originalDuration, originalZIndex;
+					x, originalDuration, originalZIndex, originalEndPosition,
+					leftElement = angular.element(element[0].querySelector('.left')),
+					centerElement = angular.element(element[0].querySelector('.center')),
+					rightElement = angular.element(element[0].querySelector('.right')),
+					border = 30;
 
 				element.css({
 					left: evt.start + 'px',
 					width: evt.duration + 'px'
 				});
 
+				centerElement.css({
+					width: (evt.duration - border) + 'px'
+				});
+
 				element.addClass(evt.class);
 
 				element.on('click', function () {
 					$scope.eventClick({
-						eventData : $scope.evt.data
+						eventData : evt.data
 					});
 				});
 
-				element.on('mouseover', function(event) {
-					var y = event.pageX - evt.start;
-
-					if (y <= 10) {
-						element.css({
-							'cursor': 'ew-resize'
-						});
-					} else if ((evt.duration - y) <= 10) {
-						element.css({
-							'cursor': 'ew-resize'
-						});
-					} else {
-						element.css({
-							'cursor': 'move'
-						});
-					}
+				leftElement.on('mouseover', function(event) {
+					element.css({
+						'cursor': 'ew-resize'
+					});
 				});
 
-				element.on('mousedown', function(event) {
+				rightElement.on('mouseover', function(event) {
+					element.css({
+						'cursor': 'ew-resize'
+					});
+				});
+
+				centerElement.on('mouseover', function(event) {
+					element.css({
+						'cursor': 'move'
+					});
+				});
+
+				leftElement.on('mousedown', function(event) {
+					// Prevent default dragging of selected content
+					event.preventDefault();
+					x = event.pageX - evt.start;
+					originalDuration = evt.duration;
+					originalZIndex = element.css('z-index');
+					originalEndPosition = evt.start + evt.duration;
+
+					element.css({
+						'z-index': 1000
+					});
+
+					$document.on('mousemove', elementExpandFront);
+					$document.on('mouseup', elementExpandFrontEnd);
+				});
+
+				rightElement.on('mousedown', function(event) {
 					// Prevent default dragging of selected content
 					event.preventDefault();
 					x = event.pageX - evt.start;
@@ -159,16 +184,23 @@ angular.module('animates.angular-timeline', [])
 						'z-index': 1000
 					});
 
-					if (x <= 10) {
-						$document.on('mousemove', elementExpandFront);
-						$document.on('mouseup', elementExpandFrontEnd);
-					} else if ((evt.duration - x) <= 10) {
-						$document.on('mousemove', elementExpandBack);
-						$document.on('mouseup', elementExpandBackEnd);
-					} else {
-						$document.on('mousemove', elementMove);
-						$document.on('mouseup', elementMoveEnd);
-					}
+					$document.on('mousemove', elementExpandBack);
+					$document.on('mouseup', elementExpandBackEnd);
+				});
+
+				centerElement.on('mousedown', function(event) {
+					// Prevent default dragging of selected content
+					event.preventDefault();
+					x = event.pageX - evt.start;
+					originalDuration = evt.duration;
+					originalZIndex = element.css('z-index');
+
+					element.css({
+						'z-index': 1000
+					});
+
+					$document.on('mousemove', elementMove);
+					$document.on('mouseup', elementMoveEnd);
 				});
 
 				function elementMove(event) {
@@ -190,21 +222,25 @@ angular.module('animates.angular-timeline', [])
 					});
 
 					$scope.eventStartchange({
-						eventData : $scope.evt.data,
+						eventData : evt.data,
 						newStartTick : evt.start
 					});
 				}
 
 				function elementExpandFront(event) {
 					var newStart = event.pageX - x,
-							newDuration = (newStart - evt.start) + originalDuration;
+							newDuration = originalEndPosition - newStart;
 
 					if (newStart > 0 && newDuration > 0) {
 						evt.duration = newDuration;
 						evt.start = newStart;
 						element.css({
 							left: newStart + 'px',
-							width: evt.duration + 'px'
+							width: newDuration + 'px'
+						});
+
+						centerElement.css({
+							width: (newDuration - border) + 'px'
 						});
 					}
 				}
@@ -218,12 +254,12 @@ angular.module('animates.angular-timeline', [])
 					});
 
 					$scope.eventStartchange({
-						eventData : $scope.evt.data,
+						eventData : evt.data,
 						newStartTick : evt.start
 					});
 
 					$scope.eventDurationchange({
-						eventData : $scope.evt.data,
+						eventData : evt.data,
 						newDuration : evt.duration
 					});
 				}
@@ -235,7 +271,11 @@ angular.module('animates.angular-timeline', [])
 					if (newDuration > 0) {
 						evt.duration = newDuration;
 						element.css({
-							width: evt.duration + 'px'
+							width: newDuration + 'px'
+						});
+
+						centerElement.css({
+							width: (newDuration - border) + 'px'
 						});
 					}
 				}

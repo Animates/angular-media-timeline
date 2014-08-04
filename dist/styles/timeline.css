@@ -92,6 +92,24 @@
   background-color: #F0FFE0;
   border: 1px solid #7A995C;
 }
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .left {
+  left: 0;
+  display: inline-block;
+  height: 100%;
+  width: 15px;
+}
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .center {
+  display: inline-block;
+  height: 100%;
+  content: ' ';
+}
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .right {
+  right: 0;
+  display: inline-block;
+  height: 100%;
+  width: 15px;
+  content: '>';
+}
 .timelines-group .timelinesContainer animates-timeline.points {
   height: 15px;
   max-height: 15px;

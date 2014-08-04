@@ -51,7 +51,7 @@
       span {
         top: 50%;
         height: 18px;
-        margin-top: -9px; /* = height/2 */  
+        margin-top: -9px; /* = height/2 */
         position: absolute;
         padding-left: 5px;
         color: #888;
@@ -87,9 +87,28 @@
           height: 90%;
           background-color: #F0FFE0;
           border: 1px solid #7A995C;
+
+          .left {
+            left: 0;
+            display: inline-block;
+            height: 100%;
+            width: 15px;
+          }
+
+          .center {
+            display: inline-block;
+            height: 100%;
+          }
+
+          .right {
+            right: 0;
+            display: inline-block;
+            height: 100%;
+            width: 15px;
+          }
         }
       }
-      
+
       &.points {
         height: 15px;
         max-height: 15px;
