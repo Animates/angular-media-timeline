@@ -23,7 +23,7 @@ TODO
 'use strict';
 
 angular.module('animates.angular-timeline', [])
-	.directive('animatesTimelinepoint', function () {
+	.directive('animatesTimelinepoint', function ($document) {
 		return {
 			restrict: 'E',
 			template:	"",
@@ -34,21 +34,72 @@ angular.module('animates.angular-timeline', [])
 				pointClick: "&",
 				multiplepointeventSelected: "&"
 			},
-			link: function ($scope, element, attrs) {
-				element.css({
-					left: $scope.point.tick + 'px'
-				});
+			link:
+			{
+				pre : function ($scope, element, attrs) {
+							element.css({
+								left: $scope.point.tick + 'px'
+							});
+						},
+				post : function ($scope, element, attrs) {
+					var x, originalZIndex;
 
-				element.on('click', function () {
-						$scope.eventClick({
-							eventData : $scope.eventData,
-							pointData : $scope.point.data
+					element.on('click', function () {
+							$scope.pointClick({
+								eventData : $scope.eventData,
+								pointData : $scope.point.data
+							});
+
+							$scope.multiplepointeventSelected({
+								eventData : $scope.eventData
+							});
 						});
 
-						$scope.multiplepointeventSelected({
-							eventData : $scope.eventData
+					element.on('mouseover', function(event) {
+						element.css({
+							'cursor': 'move'
 						});
 					});
+
+					element.on('mousedown', function(event) {
+						// Prevent default dragging of selected content
+						event.preventDefault();
+
+						x = event.pageX - $scope.point.tick;
+						originalZIndex = element.css('z-index');
+
+						element.css({
+							'z-index': 1000
+						});
+
+						$document.on('mousemove', elementMove);
+						$document.on('mouseup', elementMoveEnd);
+					});
+
+					function elementMove(event) {
+						var newTick = event.pageX - x;
+						if (newTick > 0) {
+							$scope.point.tick = newTick;
+							element.css({
+								left: newTick + 'px'
+							});
+						}
+					}
+
+					function elementMoveEnd() {
+						$document.unbind('mousemove', elementMove);
+						$document.unbind('mouseup', elementMoveEnd);
+
+						element.css({
+							'z-index': originalZIndex
+						});
+
+						$scope.pointMove({
+							pointData : $scope.point.data,
+							newTick : $scope.point.tick
+						});
+					}
+				}
 			}
 		};
 	})
@@ -64,7 +115,7 @@ angular.module('animates.angular-timeline', [])
 			},
 			link: function ($scope, element, attrs) {
 				var evt = $scope.evt,
-					x, originalDuration;
+					x, originalDuration, originalZIndex;
 
 				element.css({
 					left: evt.start + 'px',
@@ -102,6 +153,7 @@ angular.module('animates.angular-timeline', [])
 					event.preventDefault();
 					x = event.pageX - evt.start;
 					originalDuration = evt.duration;
+					originalZIndex = element.css('z-index');
 
 					element.css({
 						'z-index': 1000
@@ -133,6 +185,10 @@ angular.module('animates.angular-timeline', [])
 					$document.unbind('mousemove', elementMove);
 					$document.unbind('mouseup', elementMoveEnd);
 
+					element.css({
+						'z-index': originalZIndex
+					});
+
 					$scope.eventStartchange({
 						eventData : $scope.evt.data,
 						newStartTick : evt.start
@@ -157,6 +213,10 @@ angular.module('animates.angular-timeline', [])
 					$document.unbind('mousemove', elementExpandFront);
 					$document.unbind('mouseup', elementExpandFrontEnd);
 
+					element.css({
+						'z-index': originalZIndex
+					});
+
 					$scope.eventStartchange({
 						eventData : $scope.evt.data,
 						newStartTick : evt.start
@@ -171,14 +231,6 @@ angular.module('animates.angular-timeline', [])
 				function elementExpandBack(event) {
 					var newStart = event.pageX - x,
 						newDuration = (newStart - evt.start) + originalDuration;
-						console.log ('------');
-console.log ('x: ' + x);
-						console.log ('event.x: ' + event.x);
-								console.log ('event.pageX: ' + event.pageX);
-				console.log ('evt.duration: ' + evt.duration);
-				console.log ('newStart: ' + newStart);
-				console.log ('(newStart - evt.start): ' + (newStart - evt.start));
-				console.log ('newDuration: ' + newDuration);
 
 					if (newDuration > 0) {
 						evt.duration = newDuration;
@@ -191,6 +243,10 @@ console.log ('x: ' + x);
 				function elementExpandBackEnd() {
 					$document.unbind('mousemove', elementExpandBack);
 					$document.unbind('mouseup', elementExpandBackEnd);
+
+					element.css({
+						'z-index': originalZIndex
+					});
 
 					$scope.eventDurationchange({
 						eventData : $scope.evt.data,
@@ -283,30 +339,41 @@ console.log ('x: ' + x);
 						});
 					}
 				};
+			},
+			link: function ($scope, element, attrs) {
+				if ($scope.line.points) {
+					element.addClass('points');
+				}
+
+				if ($scope.line.events) {
+					element.addClass('events');
+				}
 			}
 		};
 	})
-	.directive('animatesTimelines', function () {
+	.directive('animatesTimelines', function ($timeout) {
 		return {
 			restrict: 'E',
 			template: "<input type='number' ng-change='internalTickChange()' ng-model='tick'></input>" +
 						"<span>{{tick}}</span>" +
 						"<div class='timelines-group' >" +
 							"<div class='timelinesHeaders'>" +
-								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' data='timeline.data'>" +
-									"<span class='timeline-header-track'>{{timeline.name}}</span>" +
+								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' data='timeline.data' rel='{{$index}}'>" +
+									"<span class='timeline-header-track' title='timeline.name' >{{timeline.name}}</span>" +
 								"</div>" +
 							"</div>" +
 							"<div class='timelinesContainer'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline' data='timeline.data'>" +
-									"<animates-timeline ng-repeat='line in timeline.lines' data='line' timeline-data='timeline.data' " +
-										"point-move='internalPointMove(timelineData, pointData, newTick)' " +
-										"point-click='internalPointClick(timelineData, pointData)' " +
-										"multiplepointevent-selected='internalMultiplePointEventSelected(timelineData, eventData)' " +
-										"event-startchange='internalEventStartChange(timelineData, eventData, newStartTick)' " +
-										"event-durationchange='internalEventDurationChange(timelineData, eventData, newDuration)' " +
-										"event-click='internalEventClick(timelineData, eventData)' " +
-									"> </animates-timeline>" +
+									"<div class='elementLinesContainer' rel='{{$index}}'>" +
+										"<animates-timeline ng-repeat='line in timeline.lines' data='line' timeline-data='timeline.data' " +
+											"point-move='internalPointMove(timelineData, pointData, newTick)' " +
+											"point-click='internalPointClick(timelineData, pointData)' " +
+											"multiplepointevent-selected='internalMultiplePointEventSelected(timelineData, eventData)' " +
+											"event-startchange='internalEventStartChange(timelineData, eventData, newStartTick)' " +
+											"event-durationchange='internalEventDurationChange(timelineData, eventData, newDuration)' " +
+											"event-click='internalEventClick(timelineData, eventData)' " +
+										"> </animates-timeline>" +
+									"</div>" +
 								"</div>" +
 							"</div>" +
 						"</div>",
@@ -384,6 +451,16 @@ console.log ('x: ' + x);
 						});
 					}
 				};
+			},
+			link : function (scope, element, attrs, ctrl) {
+				$timeout(function () {
+					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline){
+						var id = angular.element(timeline).attr('rel'),
+							height = angular.element(timeline)[0].offsetHeight;
+
+						element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height - 1 + 'px';
+					});
+				});
 			}
 		};
 	});
