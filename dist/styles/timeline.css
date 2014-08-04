@@ -101,14 +101,12 @@
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .center {
   display: inline-block;
   height: 100%;
-  content: ' ';
 }
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right {
   right: 0;
   display: inline-block;
   height: 100%;
   width: 15px;
-  content: '>';
 }
 .timelines-group .timelinesContainer animates-timeline.points {
   height: 15px;
