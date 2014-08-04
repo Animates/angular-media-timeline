@@ -391,18 +391,25 @@ angular.module('animates.angular-timeline', [])
 			}
 		};
 	})
-	.directive('animatesTimelines', function ($timeout) {
+	.directive('animatesTimelines', function ($timeout, $document) {
 		return {
 			restrict: 'E',
-			template: "<input type='number' ng-change='internalTickChange()' ng-model='tick'></input>" +
-						"<span>{{tick}}</span>" +
-						"<div class='timelines-group' >" +
+			template:
+						"<div class='timelines-tick-navigator'>" +
+							"<div class='tickHandlerHeader' ></div>" +
+								"<div class='tickHandlerContainer'>" +
+									"<div class='tickHandler' style='left:{{tick-5}}px'></div>" +
+								"</div>" +
+							"</div>" +
+						"</div>" +
+						"<div class='timelines-group'>" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' data='timeline.data' rel='{{$index}}'>" +
 									"<span class='timeline-header-track' title='timeline.name' >{{timeline.name}}</span>" +
 								"</div>" +
 							"</div>" +
 							"<div class='timelinesContainer'>" +
+								"<div class='verticalLine' style='left:{{tick}}px'></div>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline' data='timeline.data'>" +
 									"<div class='elementLinesContainer' rel='{{$index}}'>" +
 										"<animates-timeline ng-repeat='line in timeline.lines' data='line' timeline-data='timeline.data' " +
@@ -492,7 +499,7 @@ angular.module('animates.angular-timeline', [])
 					}
 				};
 			},
-			link : function (scope, element, attrs, ctrl) {
+			link : function ($scope, element, attrs, ctrl) {
 				$timeout(function () {
 					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline){
 						var id = angular.element(timeline).attr('rel'),
@@ -501,6 +508,49 @@ angular.module('animates.angular-timeline', [])
 						element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height - 1 + 'px';
 					});
 				});
+
+				var x, originalTick;
+
+				element.on('mouseover', function(event) {
+					element.css({
+						'cursor': 'move'
+					});
+				});
+
+				element.on('mousedown', function(event) {
+					// Prevent default dragging of selected content
+					event.preventDefault();
+					x = event.pageX - $scope.tick;
+					originalTick = $scope.tick;
+
+					$document.on('mousemove', tickHandlerMove);
+					$document.on('mouseup', tickHandlerMoveEnd);
+				});
+
+				function tickHandlerMove(event) {
+					var newTick = event.pageX - x;
+					if (newTick > 0) {
+
+						$scope.$apply(function () {
+							$scope.tick = newTick;
+						});
+
+						var delta = originalTick - newTick;
+						if (delta > 5 || delta < -5) {
+							originalTick = newTick;
+							$scope.internalTickChange();
+						}
+					}
+				}
+
+				function tickHandlerMoveEnd() {
+					$document.unbind('mousemove', tickHandlerMove);
+					$document.unbind('mouseup', tickHandlerMoveEnd);
+
+					if (originalTick != $scope.tick) {
+						$scope.internalTickChange();
+					}
+				}
 			}
 		};
 	});

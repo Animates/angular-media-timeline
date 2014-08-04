@@ -121,7 +121,7 @@ var module = angular.module('demo', ['animates.angular-timeline'])
         ];
 
       $scope.onTickChange = function (tick) {
-        alert(tick);
+        console.log(tick);
       };
 
       $scope.onPointMove = function (timelineData, pointData, newTick) {

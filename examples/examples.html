@@ -20,6 +20,8 @@
 <body ng-app="demo" >
 	<div ng-controller="DemoTimelineGroupCtrl" style="height:100px;">
 		<button ng-click="tick = 100;"></button>
+    <input type='number' ng-change='internalTickChange()' ng-model='tick'></input>
+    <span>{{tick}}</span>
 		<animates-timelines data="timelines" tick="tick"
       tick-change="onTickChange(tick);"
       point-move="onPointMove(timelineData, pointData, newTick)"
