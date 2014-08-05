@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jslint>
+	<file name="Gruntfile.js">
+		<issue line="43" char="7" reason="Expected &apos;&lt;%= timeline.examples %&gt;/{,*/}*.html&apos; to have an indentation at 11 instead at 7." evidence="			&apos;&lt;%= timeline.examples %&gt;/{,*/}*.html&apos;," severity="W" />
+		<issue line="120" char="37" reason="Strings must use singlequote." evidence="					&quot;dist/styles/timeline.css&quot;: &quot;timeline.less&quot;" severity="W" />
+		<issue line="120" char="54" reason="Strings must use singlequote." evidence="					&quot;dist/styles/timeline.css&quot;: &quot;timeline.less&quot;" severity="W" />
+	</file>
+	<file name="timeline.js">
+		<issue line="29" char="20" reason="Strings must use singlequote." evidence="			template:	&quot;&quot;," severity="W" />
+		<issue line="33" char="23" reason="Strings must use singlequote." evidence="				pointMove: &quot;&amp;&quot;," severity="W" />
+		<issue line="34" char="24" reason="Strings must use singlequote." evidence="				pointClick: &quot;&amp;&quot;," severity="W" />
+		<issue line="35" char="40" reason="Strings must use singlequote." evidence="				multiplepointeventSelected: &quot;&amp;&quot;" severity="W" />
+		<issue line="104" char="101" reason="Strings must use singlequote." evidence="			template:	&quot;&lt;span class=&apos;left&apos;&gt;&lt;/span&gt;&lt;span class=&apos;center&apos;&gt;&lt;/span&gt;&lt;span class=&apos;right&apos;&gt;&lt;/span&gt;&quot;," severity="W" />
+		<issue line="107" char="30" reason="Strings must use singlequote." evidence="				eventStartchange: &quot;&amp;&quot;," severity="W" />
+		<issue line="108" char="33" reason="Strings must use singlequote." evidence="				eventDurationchange: &quot;&amp;&quot;," severity="W" />
+		<issue line="109" char="24" reason="Strings must use singlequote." evidence="				eventClick: &quot;&amp;&quot;" severity="W" />
+		<issue line="278" char="50" reason="Strings must use singlequote." evidence="			template:	&quot;&lt;div class=&apos;timeline-content&apos;&gt;&quot; +" severity="W" />
+		<issue line="279" char="138" reason="Strings must use singlequote." evidence="									&quot;&lt;animates-timelinepoint class=&apos;timeline-point&apos; ng-repeat=&apos;point in line.points&apos; point=&apos;point&apos; event-data=&apos;line.data&apos; &quot; +" severity="W" />
+		<issue line="280" char="74" reason="Strings must use singlequote." evidence="										&quot;point-move=&apos;internalPointMove(pointData, newTick)&apos; &quot; +" severity="W" />
+		<issue line="281" char="67" reason="Strings must use singlequote." evidence="										&quot;point-click=&apos;internalPointClick(pointData)&apos; &quot; +" severity="W" />
+		<issue line="282" char="99" reason="Strings must use singlequote." evidence="										&quot;multiplepointevent-selected=&apos;internalMultiplePointEventSelected(eventData)&apos; &quot; +" severity="W" />
+		<issue line="283" char="50" reason="Strings must use singlequote." evidence="										&quot;&gt; &lt;/animates-timelinepoint&gt;&quot; +" severity="W" />
+		<issue line="285" char="113" reason="Strings must use singlequote." evidence="									&quot;&lt;animates-timelineevent class=&apos;timeline-event&apos; ng-repeat=&apos;event in line.events&apos; evt=&apos;event&apos; &quot; +" severity="W" />
+		<issue line="286" char="93" reason="Strings must use singlequote." evidence="										&quot;event-startchange=&apos;internalEventStartChange(eventData, newStartTick)&apos; &quot; +" severity="W" />
+		<issue line="287" char="98" reason="Strings must use singlequote." evidence="										&quot;event-durationchange=&apos;internalEventDurationChange(eventData, newDuration)&apos; &quot; +" severity="W" />
+		<issue line="288" char="67" reason="Strings must use singlequote." evidence="										&quot;event-click=&apos;internalEventClick(eventData)&apos; &quot; +" severity="W" />
+		<issue line="289" char="50" reason="Strings must use singlequote." evidence="										&quot;&gt; &lt;/animates-timelineevent&gt;&quot; +" severity="W" />
+		<issue line="290" char="25" reason="Strings must use singlequote." evidence="								&quot;&lt;/div&gt;&quot;," severity="W" />
+		<issue line="294" char="30" reason="Strings must use singlequote." evidence="				eventStartchange: &quot;&amp;&quot;," severity="W" />
+		<issue line="295" char="33" reason="Strings must use singlequote." evidence="				eventDurationchange: &quot;&amp;&quot;," severity="W" />
+		<issue line="296" char="24" reason="Strings must use singlequote." evidence="				eventClick: &quot;&amp;&quot;," severity="W" />
+		<issue line="297" char="23" reason="Strings must use singlequote." evidence="				pointMove: &quot;&amp;&quot;," severity="W" />
+		<issue line="298" char="24" reason="Strings must use singlequote." evidence="				pointClick: &quot;&amp;&quot;," severity="W" />
+		<issue line="299" char="40" reason="Strings must use singlequote." evidence="				multiplepointeventSelected: &quot;&amp;&quot;" severity="W" />
+		<issue line="374" char="53" reason="Strings must use singlequote." evidence="						&quot;&lt;div class=&apos;timelines-tick-navigator&apos;&gt;&quot; +" severity="W" />
+		<issue line="375" char="55" reason="Strings must use singlequote." evidence="							&quot;&lt;div class=&apos;tickHandlerHeader&apos; &gt;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="376" char="53" reason="Strings must use singlequote." evidence="								&quot;&lt;div class=&apos;tickHandlerContainer&apos;&gt;&quot; +" severity="W" />
+		<issue line="377" char="78" reason="Strings must use singlequote." evidence="									&quot;&lt;div class=&apos;tickHandler&apos; style=&apos;left:{{tick-5}}px&apos;&gt;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="378" char="25" reason="Strings must use singlequote." evidence="								&quot;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="379" char="23" reason="Strings must use singlequote." evidence="							&quot;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="380" char="21" reason="Strings must use singlequote." evidence="						&quot;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="382" char="44" reason="Strings must use singlequote." evidence="						&quot;&lt;div class=&apos;timelines-group&apos;&gt;&quot; +" severity="W" />
+		<issue line="383" char="47" reason="Strings must use singlequote." evidence="							&quot;&lt;div class=&apos;timelinesHeaders&apos;&gt;&quot; +" severity="W" />
+		<issue line="384" char="129" reason="Strings must use singlequote." evidence="								&quot;&lt;div ng-repeat=&apos;timeline in data&apos; class=&apos;timeline-part timeline-header&apos; data=&apos;timeline.data&apos; rel=&apos;{{$index}}&apos;&gt;&quot; +" severity="W" />
+		<issue line="385" char="104" reason="Strings must use singlequote." evidence="									&quot;&lt;span class=&apos;timeline-header-track&apos; title=&apos;timeline.name&apos; &gt;{{timeline.name}}&lt;/span&gt;&quot; +" severity="W" />
+		<issue line="386" char="25" reason="Strings must use singlequote." evidence="								&quot;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="387" char="23" reason="Strings must use singlequote." evidence="							&quot;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="389" char="49" reason="Strings must use singlequote." evidence="							&quot;&lt;div class=&apos;timelinesContainer&apos;&gt;&quot; +" severity="W" />
+		<issue line="390" char="75" reason="Strings must use singlequote." evidence="								&quot;&lt;div class=&apos;verticalLine&apos; style=&apos;left:{{tick}}px&apos;&gt;&lt;/div&gt;&quot; +" severity="W" />
+		<issue line="391" char="105" reason="Strings must use singlequote." evidence="								&quot;&lt;div ng-repeat=&apos;timeline in data&apos; class=&apos;timeline-part timeline&apos; data=&apos;timeline.data&apos;&gt;&quot; +" severity="W" />
+		<issue line="392" char="73" reason="Strings must use singlequote." evidence="									&quot;&lt;div class=&apos;elementLinesContainer&apos; rel=&apos;{{$index}}&apos;&gt;&quot; +" severity="W" />
+		<issue line="393" char="119" reason="Strings must use singlequote." evidence="										&quot;&lt;animates-timeline ng-repeat=&apos;line in timeline.lines&apos; data=&apos;line&apos; timeline-data=&apos;timeline.data&apos; &quot; +" severity="W" />
+		<issue line="394" char="90" reason="Strings must use singlequote." evidence="											&quot;point-move=&apos;internalPointMove(timelineData, pointData, newTick)&apos; &quot; +" severity="W" />
+		<issue line="395" char="83" reason="Strings must use singlequote." evidence="											&quot;point-click=&apos;internalPointClick(timelineData, pointData)&apos; &quot; +" severity="W" />
+		<issue line="396" char="115" reason="Strings must use singlequote." evidence="											&quot;multiplepointevent-selected=&apos;internalMultiplePointEventSelected(timelineData, eventData)&apos; &quot; +" severity="W" />
+		<issue line="397" char="109" reason="Strings must use singlequote." evidence="											&quot;event-startchange=&apos;internalEventStartChange(timelineData, eventData, newStartTick)&apos; &quot; +" severity="W" />
+		<issue line="398" char="114" reason="Strings must use singlequote." evidence="											&quot;event-durationchange=&apos;internalEventDurationChange(timelineData, eventData, newDuration)&apos; &quot; +" severity="W" />
+		<issue line="399" char="83" reason="Strings must use singlequote." evidence="											&quot;event-click=&apos;internalEventClick(timelineData, eventData)&apos; &quot; +" severity="W" />
+		<issue line="399" char="83" reason="Too many errors. (73% scanned)." evidence="" severity="E" />
+	</file>
+</jslint>

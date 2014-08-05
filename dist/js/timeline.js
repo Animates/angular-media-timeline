@@ -378,12 +378,14 @@ angular.module('animates.angular-timeline', [])
 								"</div>" +
 							"</div>" +
 						"</div>" +
+
 						"<div class='timelines-group'>" +
 							"<div class='timelinesHeaders'>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' data='timeline.data' rel='{{$index}}'>" +
 									"<span class='timeline-header-track' title='timeline.name' >{{timeline.name}}</span>" +
 								"</div>" +
 							"</div>" +
+
 							"<div class='timelinesContainer'>" +
 								"<div class='verticalLine' style='left:{{tick}}px'></div>" +
 								"<div ng-repeat='timeline in data' class='timeline-part timeline' data='timeline.data'>" +
@@ -423,7 +425,7 @@ angular.module('animates.angular-timeline', [])
         });
 
 				$scope.internalTickChange = function () {
-					$scope.externalTick = $scope.tick;
+					$scope.$apply(function (){ $scope.externalTick = $scope.tick;});
 
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
