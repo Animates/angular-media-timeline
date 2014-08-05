@@ -426,7 +426,7 @@ angular.module('animates.angular-timeline', [])
 						"</div>",
 			scope: {
 				data: '=',
-				tick: '=',
+				externalTick: '=tick',
 				tickChange: "&",
 				eventStartchange: "&",
 				eventDurationchange: "&",
@@ -436,7 +436,19 @@ angular.module('animates.angular-timeline', [])
 				multiplepointeventSelected: "&"
 			},
 			controller : function ($scope) {
+				$scope.tick = $scope.externalTick;
+
+				$scope.$watch('externalTick', function(newValue, oldValue) {
+					$scope.tick = $scope.externalTick;
+					
+					if ($scope.tickChange) {
+						$scope.tickChange( { tick: $scope.tick });
+					}
+        });
+
 				$scope.internalTickChange = function () {
+					$scope.externalTick = $scope.tick;
+
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
 					}
