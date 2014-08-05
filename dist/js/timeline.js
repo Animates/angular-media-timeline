@@ -56,12 +56,6 @@ angular.module('animates.angular-timeline', [])
 							});
 						});
 
-					element.on('mouseover', function(event) {
-						element.css({
-							'cursor': 'move'
-						});
-					});
-
 					element.on('mousedown', function(event) {
 						// Prevent default dragging of selected content
 						event.preventDefault();
@@ -136,24 +130,6 @@ angular.module('animates.angular-timeline', [])
 				element.on('click', function () {
 					$scope.eventClick({
 						eventData : evt.data
-					});
-				});
-
-				leftElement.on('mouseover', function(event) {
-					element.css({
-						'cursor': 'ew-resize'
-					});
-				});
-
-				rightElement.on('mouseover', function(event) {
-					element.css({
-						'cursor': 'ew-resize'
-					});
-				});
-
-				centerElement.on('mouseover', function(event) {
-					element.css({
-						'cursor': 'move'
 					});
 				});
 
@@ -440,7 +416,7 @@ angular.module('animates.angular-timeline', [])
 
 				$scope.$watch('externalTick', function(newValue, oldValue) {
 					$scope.tick = $scope.externalTick;
-					
+
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
 					}
@@ -521,15 +497,10 @@ angular.module('animates.angular-timeline', [])
 					});
 				});
 
-				var x, originalTick;
+				var x, originalTick,
+					tickHandlerElement = angular.element(element[0].querySelector('.tickHandler'));
 
-				element.on('mouseover', function(event) {
-					element.css({
-						'cursor': 'move'
-					});
-				});
-
-				element.on('mousedown', function(event) {
+				tickHandlerElement.on('mousedown', function(event) {
 					// Prevent default dragging of selected content
 					event.preventDefault();
 					x = event.pageX - $scope.tick;

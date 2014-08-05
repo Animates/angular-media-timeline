@@ -30,6 +30,7 @@
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 12px solid blue;
+  cursor: move;
 }
 .timelines-group {
   width: 100%;
@@ -124,16 +125,19 @@
   display: inline-block;
   height: 100%;
   width: 15px;
+  cursor: ew-resize;
 }
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .center {
   display: inline-block;
   height: 100%;
+  cursor: move;
 }
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right {
   right: 0;
   display: inline-block;
   height: 100%;
   width: 15px;
+  cursor: ew-resize;
 }
 .timelines-group .timelinesContainer animates-timeline.points {
   height: 15px;
@@ -149,4 +153,5 @@
   position: absolute;
   top: 3px;
   border: 1px solid white;
+  cursor: move;
 }
