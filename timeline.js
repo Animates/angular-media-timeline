@@ -26,22 +26,22 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimelinepoint', function ($document) {
 		return {
 			restrict: 'E',
-			template:	"",
+			template:	'',
 			scope: {
 				point: '=',
 				eventData: '=',
-				pointMove: "&",
-				pointClick: "&",
-				multiplepointeventSelected: "&"
+				pointMove: '&',
+				pointClick: '&',
+				multiplepointeventSelected: '&'
 			},
 			link:
 			{
-				pre: function ($scope, element, attrs) {
+				pre: function ($scope, element) {
 					element.css({
 						left: $scope.point.tick + 'px'
 					});
 				},
-				post: function ($scope, element, attrs) {
+				post: function ($scope, element) {
 					var point = $scope.point,
 						x, originalZIndex;
 
@@ -101,14 +101,14 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimelineevent', function ($document) {
 		return {
 			restrict: 'E',
-			template:	"<span class='left'></span><span class='center'></span><span class='right'></span>",
+			template:	'<span class="left"></span><span class="center"></span><span class="right"></span>',
 			scope: {
 				evt: '=',
-				eventStartchange: "&",
-				eventDurationchange: "&",
-				eventClick: "&"
+				eventStartchange: '&',
+				eventDurationchange: '&',
+				eventClick: '&'
 			},
-			link: function ($scope, element, attrs) {
+			link: function ($scope, element) {
 				var evt = $scope.evt,
 					x, originalDuration, originalZIndex, originalEndPosition,
 					leftElement = angular.element(element[0].querySelector('.left')),
@@ -275,28 +275,28 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimeline', function () {
 		return {
 			restrict: 'E',
-			template:	"<div class='timeline-content'>" +
-									"<animates-timelinepoint class='timeline-point' ng-repeat='point in line.points' point='point' event-data='line.data' " +
-										"point-move='internalPointMove(pointData, newTick)' " +
-										"point-click='internalPointClick(pointData)' " +
-										"multiplepointevent-selected='internalMultiplePointEventSelected(eventData)' " +
-										"> </animates-timelinepoint>" +
+			template:	'<div class="timeline-content">' +
+									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" ' +
+										'point-move="internalPointMove(pointData, newTick)" ' +
+										'point-click="internalPointClick(pointData)" ' +
+										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)" ' +
+										'> </animates-timelinepoint>' +
 
-									"<animates-timelineevent class='timeline-event' ng-repeat='event in line.events' evt='event' " +
-										"event-startchange='internalEventStartChange(eventData, newStartTick)' " +
-										"event-durationchange='internalEventDurationChange(eventData, newDuration)' " +
-										"event-click='internalEventClick(eventData)' " +
-										"> </animates-timelineevent>" +
-								"</div>",
+									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" ' +
+										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
+										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
+										'event-click="internalEventClick(eventData)" ' +
+										'> </animates-timelineevent>' +
+								'</div>',
 			scope: {
 				line: '=data',
 				timelineData: '=',
-				eventStartchange: "&",
-				eventDurationchange: "&",
-				eventClick: "&",
-				pointMove: "&",
-				pointClick: "&",
-				multiplepointeventSelected: "&"
+				eventStartchange: '&',
+				eventDurationchange: '&',
+				eventClick: '&',
+				pointMove: '&',
+				pointClick: '&',
+				multiplepointeventSelected: '&'
 			},
 			controller : function ($scope) {
 				$scope.internalEventStartChange = function (eventData, newStartTick) {
@@ -356,7 +356,7 @@ angular.module('animates.angular-timeline', [])
 					}
 				};
 			},
-			link: function ($scope, element, attrs) {
+			link: function ($scope, element) {
 				if ($scope.line.points) {
 					element.addClass('points');
 				}
@@ -371,52 +371,52 @@ angular.module('animates.angular-timeline', [])
 		return {
 			restrict: 'E',
 			template:
-						"<div class='timelines-tick-navigator'>" +
-							"<div class='tickHandlerHeader' ></div>" +
-								"<div class='tickHandlerContainer'>" +
-									"<div class='tickHandler' style='left:{{tick-5}}px'></div>" +
-								"</div>" +
-							"</div>" +
-						"</div>" +
+						'<div class="timelines-tick-navigator">' +
+							'<div class="tickHandlerHeader" ></div>' +
+								'<div class="tickHandlerContainer">' +
+									'<div class="tickHandler" style="left:{{tick-5}}px"></div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
 
-						"<div class='timelines-group'>" +
-							"<div class='timelinesHeaders'>" +
-								"<div ng-repeat='timeline in data' class='timeline-part timeline-header' data='timeline.data' rel='{{$index}}'>" +
-									"<span class='timeline-header-track' title='timeline.name' >{{timeline.name}}</span>" +
-								"</div>" +
-							"</div>" +
+						'<div class="timelines-group">' +
+							'<div class="timelinesHeaders">' +
+								'<div ng-repeat="timeline in data" class="timeline-part timeline-header" data="timeline.data" rel="{{$index}}">' +
+									'<span class="timeline-header-track" title="timeline.name" >{{timeline.name}}</span>' +
+								'</div>' +
+							'</div>' +
 
-							"<div class='timelinesContainer'>" +
-								"<div class='verticalLine' style='left:{{tick}}px'></div>" +
-								"<div ng-repeat='timeline in data' class='timeline-part timeline' data='timeline.data'>" +
-									"<div class='elementLinesContainer' rel='{{$index}}'>" +
-										"<animates-timeline ng-repeat='line in timeline.lines' data='line' timeline-data='timeline.data' " +
-											"point-move='internalPointMove(timelineData, pointData, newTick)' " +
-											"point-click='internalPointClick(timelineData, pointData)' " +
-											"multiplepointevent-selected='internalMultiplePointEventSelected(timelineData, eventData)' " +
-											"event-startchange='internalEventStartChange(timelineData, eventData, newStartTick)' " +
-											"event-durationchange='internalEventDurationChange(timelineData, eventData, newDuration)' " +
-											"event-click='internalEventClick(timelineData, eventData)' " +
-										"> </animates-timeline>" +
-									"</div>" +
-								"</div>" +
-							"</div>" +
-						"</div>",
+							'<div class="timelinesContainer">' +
+								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
+								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
+									'<div class="elementLinesContainer" rel="{{$index}}">' +
+										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" ' +
+											'point-move="internalPointMove(timelineData, pointData, newTick)" ' +
+											'point-click="internalPointClick(timelineData, pointData)" ' +
+											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
+											'event-startchange="internalEventStartChange(timelineData, eventData, newStartTick)" ' +
+											'event-durationchange="internalEventDurationChange(timelineData, eventData, newDuration)" ' +
+											'event-click="internalEventClick(timelineData, eventData)" ' +
+										'> </animates-timeline>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>',
 			scope: {
 				data: '=',
 				externalTick: '=tick',
-				tickChange: "&",
-				eventStartchange: "&",
-				eventDurationchange: "&",
-				eventClick: "&",
-				pointMove: "&",
-				pointClick: "&",
-				multiplepointeventSelected: "&"
+				tickChange: '&',
+				eventStartchange: '&',
+				eventDurationchange: '&',
+				eventClick: '&',
+				pointMove: '&',
+				pointClick: '&',
+				multiplepointeventSelected: '&'
 			},
 			controller : function ($scope) {
 				$scope.tick = $scope.externalTick;
 
-				$scope.$watch('externalTick', function(newValue, oldValue) {
+				$scope.$watch('externalTick', function() {
 					$scope.tick = $scope.externalTick;
 
 					if ($scope.tickChange) {
@@ -489,7 +489,7 @@ angular.module('animates.angular-timeline', [])
 					}
 				};
 			},
-			link : function ($scope, element, attrs, ctrl) {
+			link : function ($scope, element) {
 				$timeout(function () {
 					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline){
 						var id = angular.element(timeline).attr('rel'),
@@ -513,14 +513,16 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				function tickHandlerMove(event) {
-					var newTick = event.pageX - x;
-					if (newTick > 0) {
+					var newTick = event.pageX - x,
+						delta;
 
+					if (newTick > 0) {
 						$scope.$apply(function () {
 							$scope.tick = newTick;
 						});
 
-						var delta = originalTick - newTick;
+						delta = originalTick - newTick;
+
 						if (delta > 5 || delta < -5) {
 							originalTick = newTick;
 							$scope.internalTickChange();
@@ -532,7 +534,7 @@ angular.module('animates.angular-timeline', [])
 					$document.unbind('mousemove', tickHandlerMove);
 					$document.unbind('mouseup', tickHandlerMoveEnd);
 
-					if (originalTick != $scope.tick) {
+					if (originalTick !== $scope.tick) {
 						$scope.internalTickChange();
 					}
 				}

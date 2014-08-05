@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 		watch: {
 			js: {
 				files: ['<%= timeline.examples %>/{,*/}*.js', 'timeline.js'],
-				tasks: ['jshint:build', 'uglify:build', 'copy:dist'],
+				tasks: ['jshint:all', 'uglify:build', 'copy:dist'],
 				options: {
 					livereload: true
 				}
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 					livereload: '<%= connect.options.livereload %>'
 				},
 				files: [
-			'<%= timeline.examples %>/{,*/}*.html',
+					'<%= timeline.examples %>/{,*/}*.html',
 					'<%= timeline.dist %>/styles/{,*/}*.css',
 					'<%= timeline.dist %>/js/{,*/}*.js'
 				]
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
 				options: {
 				},
 				files: {
-					"dist/styles/timeline.css": "timeline.less"
+					'dist/styles/timeline.css': 'timeline.less'
 				}
 			}
 		},
