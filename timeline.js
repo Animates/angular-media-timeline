@@ -296,7 +296,8 @@ angular.module('animates.angular-timeline', [])
 				eventClick: '&',
 				pointMove: '&',
 				pointClick: '&',
-				multiplepointeventSelected: '&'
+				multiplepointeventSelected: '&',
+				maxTick: '='
 			},
 			controller : function ($scope) {
 				$scope.internalEventStartChange = function (eventData, newStartTick) {
@@ -373,8 +374,9 @@ angular.module('animates.angular-timeline', [])
 			template:
 						'<div class="timelines-tick-navigator">' +
 							'<div class="tickHandlerHeader" ></div>' +
-								'<div class="tickHandlerContainer">' +
-									'<div class="tickHandler" style="left:{{tick-5}}px"></div>' +
+							'<div class="tickHandlerScrollerContainer" >' +
+								'<div class="tickHandlerContainer" style="width:{{maxTick}}px;">' +
+									'<div class="tickHandler" style="left:{{tick-5}}px;"></div>' +
 								'</div>' +
 							'</div>' +
 						'</div>' +
@@ -389,8 +391,8 @@ angular.module('animates.angular-timeline', [])
 							'<div class="timelinesContainer">' +
 								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
-									'<div class="elementLinesContainer" rel="{{$index}}">' +
-										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" ' +
+									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
+										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" ' +
 											'point-move="internalPointMove(timelineData, pointData, newTick)" ' +
 											'point-click="internalPointClick(timelineData, pointData)" ' +
 											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
@@ -415,6 +417,7 @@ angular.module('animates.angular-timeline', [])
 			},
 			controller : function ($scope) {
 				$scope.tick = $scope.externalTick;
+				$scope.maxTick = 5000;
 
 				$scope.$watch('externalTick', function() {
 					$scope.tick = $scope.externalTick;
@@ -491,7 +494,7 @@ angular.module('animates.angular-timeline', [])
 			},
 			link : function ($scope, element) {
 				$timeout(function () {
-					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline){
+					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline) {
 						var id = angular.element(timeline).attr('rel'),
 							height = angular.element(timeline)[0].offsetHeight;
 
@@ -500,7 +503,13 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				var x, originalTick,
-					tickHandlerElement = angular.element(element[0].querySelector('.tickHandler'));
+					tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
+					timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
+					tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer'));
+
+				timelineContainerElement.on('scroll', function () {
+					tickHandlerScrollerContainerElement[0].scrollLeft = timelineContainerElement[0].scrollLeft;
+				});
 
 				tickHandlerElement.on('mousedown', function(event) {
 					// Prevent default dragging of selected content
