@@ -28,6 +28,7 @@ angular.module('animates.angular-timeline', [])
 			restrict: 'E',
 			template:	'',
 			scope: {
+				timelineTick: '=',
 				point: '=',
 				eventData: '=',
 				isDisable: '=',
@@ -290,17 +291,17 @@ angular.module('animates.angular-timeline', [])
 		return {
 			restrict: 'E',
 			template:	'<div class="timeline-content">' +
-									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" is-disable="isDisable" ng-class="{cursor: !isDisable}"' +
+									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" is-disable="isDisable" ng-class="{cursor: !isDisable, highlight: timelineTick === point.tick}" timeline-tick="timelineTick"' +
 										'point-move="internalPointMove(pointData, newTick)" ' +
 										'point-click="internalPointClick(pointData)" ' +
-										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)" ' +
-										'> </animates-timelinepoint>' +
+										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)">' +
+									'</animates-timelinepoint>' +
 
 									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" is-disable="isDisable"' +
 										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
 										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
-										'event-click="internalEventClick(eventData)" ' +
-										'> </animates-timelineevent>' +
+										'event-click="internalEventClick(eventData)">' +
+									' </animates-timelineevent>' +
 								'</div>',
 			scope: {
 				line: '=data',
@@ -312,7 +313,8 @@ angular.module('animates.angular-timeline', [])
 				pointMove: '&',
 				pointClick: '&',
 				multiplepointeventSelected: '&',
-				maxTick: '='
+				maxTick: '=',
+				timelineTick: '='
 			},
 			controller : function ($scope) {
 				$scope.internalEventStartChange = function (eventData, newStartTick) {
@@ -407,7 +409,7 @@ angular.module('animates.angular-timeline', [])
 								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
 									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
-										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" is-disable="isDisable"' +
+										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" timeline-tick="tick" max-tick="maxTick" is-disable="isDisable"' +
 											'point-move="internalPointMove(timelineData, pointData, newTick)" ' +
 											'point-click="internalPointClick(timelineData, pointData)" ' +
 											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
@@ -436,12 +438,13 @@ angular.module('animates.angular-timeline', [])
 				$scope.maxTick = 5000;
 
 				$scope.$watch('externalTick', function() {
+					
 					$scope.tick = $scope.externalTick;
 
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
 					}
-        });
+				});
 
 				$scope.internalTickChange = function () {
 					$scope.$apply(function (){ $scope.externalTick = $scope.tick;});
