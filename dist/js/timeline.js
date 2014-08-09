@@ -85,6 +85,7 @@ angular.module('animates.angular-timeline', [])
 								left: newTick + 'px'
 							});
 						}
+						$scope.$apply();
 					}
 
 					function elementMoveEnd() {
@@ -204,6 +205,7 @@ angular.module('animates.angular-timeline', [])
 							left: newStart + 'px'
 						});
 					}
+					$scope.$apply();
 				}
 
 				function elementMoveEnd() {
