@@ -3,7 +3,8 @@
 var module = angular.module('demo', ['animates.angular-timeline'])
   .controller('DemoTimelineGroupCtrl', function ($scope) {
     $scope.tick = 200;
-    
+    $scope.enable = true;
+
     $scope.timelines =
         [
           {

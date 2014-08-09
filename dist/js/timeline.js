@@ -30,6 +30,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				point: '=',
 				eventData: '=',
+				isEnable: '=',
 				pointMove: '&',
 				pointClick: '&',
 				multiplepointeventSelected: '&'
@@ -46,29 +47,33 @@ angular.module('animates.angular-timeline', [])
 						x, originalZIndex;
 
 					element.on('click', function () {
-							$scope.pointClick({
-								eventData : $scope.eventData,
-								pointData : point.data
-							});
+							if ($scope.isEnable) {
+								$scope.pointClick({
+									eventData : $scope.eventData,
+									pointData : point.data
+								});
 
-							$scope.multiplepointeventSelected({
-								eventData : $scope.eventData
-							});
+								$scope.multiplepointeventSelected({
+									eventData : $scope.eventData
+								});
+							}
 						});
 
 					element.on('mousedown', function(event) {
-						// Prevent default dragging of selected content
-						event.preventDefault();
+						if ($scope.isEnable) {
+							// Prevent default dragging of selected content
+							event.preventDefault();
 
-						x = event.pageX - point.tick;
-						originalZIndex = element.css('z-index');
+							x = event.pageX - point.tick;
+							originalZIndex = element.css('z-index');
 
-						element.css({
-							'z-index': 1000
-						});
+							element.css({
+								'z-index': 1000
+							});
 
-						$document.on('mousemove', elementMove);
-						$document.on('mouseup', elementMoveEnd);
+							$document.on('mousemove', elementMove);
+							$document.on('mouseup', elementMoveEnd);
+						}
 					});
 
 					function elementMove(event) {
@@ -104,6 +109,7 @@ angular.module('animates.angular-timeline', [])
 			template:	'<span class="left"></span><span class="center"></span><span class="right"></span>',
 			scope: {
 				evt: '=',
+				isEnable: '=',
 				eventStartchange: '&',
 				eventDurationchange: '&',
 				eventClick: '&'
@@ -128,55 +134,63 @@ angular.module('animates.angular-timeline', [])
 				element.addClass(evt.class);
 
 				element.on('click', function () {
-					$scope.eventClick({
-						eventData : evt.data
-					});
+					if ($scope.isEnable) {
+						$scope.eventClick({
+							eventData : evt.data
+						});
+					}
 				});
 
 				leftElement.on('mousedown', function(event) {
-					// Prevent default dragging of selected content
-					event.preventDefault();
-					x = event.pageX - evt.start;
-					originalDuration = evt.duration;
-					originalZIndex = element.css('z-index');
-					originalEndPosition = evt.start + evt.duration;
+					if ($scope.isEnable) {
+						// Prevent default dragging of selected content
+						event.preventDefault();
+						x = event.pageX - evt.start;
+						originalDuration = evt.duration;
+						originalZIndex = element.css('z-index');
+						originalEndPosition = evt.start + evt.duration;
 
-					element.css({
-						'z-index': 1000
-					});
+						element.css({
+							'z-index': 1000
+						});
 
-					$document.on('mousemove', elementExpandFront);
-					$document.on('mouseup', elementExpandFrontEnd);
+						$document.on('mousemove', elementExpandFront);
+						$document.on('mouseup', elementExpandFrontEnd);
+					}
 				});
 
 				rightElement.on('mousedown', function(event) {
-					// Prevent default dragging of selected content
-					event.preventDefault();
-					x = event.pageX - evt.start;
-					originalDuration = evt.duration;
-					originalZIndex = element.css('z-index');
+					if ($scope.isEnable) {
+						// Prevent default dragging of selected content
+						event.preventDefault();
+						x = event.pageX - evt.start;
+						originalDuration = evt.duration;
+						originalZIndex = element.css('z-index');
 
-					element.css({
-						'z-index': 1000
-					});
+						element.css({
+							'z-index': 1000
+						});
 
-					$document.on('mousemove', elementExpandBack);
-					$document.on('mouseup', elementExpandBackEnd);
+						$document.on('mousemove', elementExpandBack);
+						$document.on('mouseup', elementExpandBackEnd);
+					}
 				});
 
 				centerElement.on('mousedown', function(event) {
-					// Prevent default dragging of selected content
-					event.preventDefault();
-					x = event.pageX - evt.start;
-					originalDuration = evt.duration;
-					originalZIndex = element.css('z-index');
+					if ($scope.isEnable) {
+						// Prevent default dragging of selected content
+						event.preventDefault();
+						x = event.pageX - evt.start;
+						originalDuration = evt.duration;
+						originalZIndex = element.css('z-index');
 
-					element.css({
-						'z-index': 1000
-					});
+						element.css({
+							'z-index': 1000
+						});
 
-					$document.on('mousemove', elementMove);
-					$document.on('mouseup', elementMoveEnd);
+						$document.on('mousemove', elementMove);
+						$document.on('mouseup', elementMoveEnd);
+					}
 				});
 
 				function elementMove(event) {
@@ -276,13 +290,13 @@ angular.module('animates.angular-timeline', [])
 		return {
 			restrict: 'E',
 			template:	'<div class="timeline-content">' +
-									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" ' +
+									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" is-enable="isEnable"' +
 										'point-move="internalPointMove(pointData, newTick)" ' +
 										'point-click="internalPointClick(pointData)" ' +
 										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)" ' +
 										'> </animates-timelinepoint>' +
 
-									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" ' +
+									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" is-enable="isEnable"' +
 										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
 										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
 										'event-click="internalEventClick(eventData)" ' +
@@ -291,6 +305,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				line: '=data',
 				timelineData: '=',
+				isEnable: '=',
 				eventStartchange: '&',
 				eventDurationchange: '&',
 				eventClick: '&',
@@ -392,7 +407,7 @@ angular.module('animates.angular-timeline', [])
 								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
 									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
-										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" ' +
+										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" is-enable="isEnable"' +
 											'point-move="internalPointMove(timelineData, pointData, newTick)" ' +
 											'point-click="internalPointClick(timelineData, pointData)" ' +
 											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
@@ -407,6 +422,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				data: '=',
 				externalTick: '=tick',
+				isEnable: '=',
 				tickChange: '&',
 				eventStartchange: '&',
 				eventDurationchange: '&',
@@ -512,13 +528,16 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				tickHandlerElement.on('mousedown', function(event) {
-					// Prevent default dragging of selected content
-					event.preventDefault();
-					x = event.pageX - $scope.tick;
-					originalTick = $scope.tick;
+					if ($scope.isEnable) {
+						// Prevent default dragging of selected content
+						event.preventDefault();
 
-					$document.on('mousemove', tickHandlerMove);
-					$document.on('mouseup', tickHandlerMoveEnd);
+						x = event.pageX - $scope.tick;
+						originalTick = $scope.tick;
+
+						$document.on('mousemove', tickHandlerMove);
+						$document.on('mouseup', tickHandlerMoveEnd);
+					}
 				});
 
 				function tickHandlerMove(event) {
