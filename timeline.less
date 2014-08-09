@@ -39,11 +39,13 @@
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-top: 12px solid blue;
+      }
+
+      .tickHandler.cursor {
         cursor: move;
       }
     }
   }
-
 }
 
 .timelines-group {
@@ -135,12 +137,18 @@
             display: inline-block;
             height: 100%;
             width: 15px;
+          }
+
+          .left.cursor {
             cursor: ew-resize;
           }
 
           .center {
             display: inline-block;
             height: 100%;
+          }
+
+          .center.cursor {
             cursor: move;
           }
 
@@ -149,6 +157,9 @@
             display: inline-block;
             height: 100%;
             width: 15px;
+          }
+
+          .right.cursor {
             cursor: ew-resize;
           }
         }
@@ -168,6 +179,9 @@
           position: absolute;
           top: 3px;
           border: 1px solid white;
+        }
+
+        animates-timelinepoint.cursor {
           cursor: move;
         }
       }

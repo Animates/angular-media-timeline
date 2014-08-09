@@ -22,10 +22,10 @@
 		<button ng-click="tick = 100;"></button>
     <input type='number' ng-change='internalTickChange()' ng-model='tick'></input>
 
-    <input type='checkbox' ng-model='enable'></input>
+    <input type='checkbox' ng-model='disable'></input>
 
     <span>{{tick}}</span>
-		<animates-timelines data="timelines" tick="tick" is-enable="enable"
+		<animates-timelines data="timelines" tick="tick" is-disable="disable"
       tick-change="onTickChange(tick);"
       point-move="onPointMove(timelineData, pointData, newTick)"
       point-click="onPointClick(timelineData, pointData)"

@@ -37,6 +37,8 @@
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 12px solid blue;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor {
   cursor: move;
 }
 .timelines-group {
@@ -132,11 +134,15 @@
   display: inline-block;
   height: 100%;
   width: 15px;
+}
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .left.cursor {
   cursor: ew-resize;
 }
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .center {
   display: inline-block;
   height: 100%;
+}
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .center.cursor {
   cursor: move;
 }
 .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right {
@@ -144,6 +150,8 @@
   display: inline-block;
   height: 100%;
   width: 15px;
+}
+.timelines-group .timelinesContainer animates-timeline.events .timeline-event .right.cursor {
   cursor: ew-resize;
 }
 .timelines-group .timelinesContainer animates-timeline.points {
@@ -160,5 +168,7 @@
   position: absolute;
   top: 3px;
   border: 1px solid white;
+}
+.timelines-group .timelinesContainer animates-timeline.points animates-timelinepoint.cursor {
   cursor: move;
 }

@@ -30,7 +30,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				point: '=',
 				eventData: '=',
-				isEnable: '=',
+				isDisable: '=',
 				pointMove: '&',
 				pointClick: '&',
 				multiplepointeventSelected: '&'
@@ -47,7 +47,7 @@ angular.module('animates.angular-timeline', [])
 						x, originalZIndex;
 
 					element.on('click', function () {
-							if ($scope.isEnable) {
+							if (!$scope.isDisable) {
 								$scope.pointClick({
 									eventData : $scope.eventData,
 									pointData : point.data
@@ -60,7 +60,7 @@ angular.module('animates.angular-timeline', [])
 						});
 
 					element.on('mousedown', function(event) {
-						if ($scope.isEnable) {
+						if (!$scope.isDisable) {
 							// Prevent default dragging of selected content
 							event.preventDefault();
 
@@ -106,10 +106,10 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimelineevent', function ($document) {
 		return {
 			restrict: 'E',
-			template:	'<span class="left"></span><span class="center"></span><span class="right"></span>',
+			template:	'<span class="left" ng-class="{cursor: !isDisable}"></span><span class="center" ng-class="{cursor: !isDisable}"></span><span class="right" ng-class="{cursor: !isDisable}"></span>',
 			scope: {
 				evt: '=',
-				isEnable: '=',
+				isDisable: '=',
 				eventStartchange: '&',
 				eventDurationchange: '&',
 				eventClick: '&'
@@ -134,7 +134,7 @@ angular.module('animates.angular-timeline', [])
 				element.addClass(evt.class);
 
 				element.on('click', function () {
-					if ($scope.isEnable) {
+					if (!$scope.isDisable) {
 						$scope.eventClick({
 							eventData : evt.data
 						});
@@ -142,7 +142,7 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				leftElement.on('mousedown', function(event) {
-					if ($scope.isEnable) {
+					if (!$scope.isDisable) {
 						// Prevent default dragging of selected content
 						event.preventDefault();
 						x = event.pageX - evt.start;
@@ -160,7 +160,7 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				rightElement.on('mousedown', function(event) {
-					if ($scope.isEnable) {
+					if (!$scope.isDisable) {
 						// Prevent default dragging of selected content
 						event.preventDefault();
 						x = event.pageX - evt.start;
@@ -177,7 +177,7 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				centerElement.on('mousedown', function(event) {
-					if ($scope.isEnable) {
+					if (!$scope.isDisable) {
 						// Prevent default dragging of selected content
 						event.preventDefault();
 						x = event.pageX - evt.start;
@@ -290,13 +290,13 @@ angular.module('animates.angular-timeline', [])
 		return {
 			restrict: 'E',
 			template:	'<div class="timeline-content">' +
-									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" is-enable="isEnable"' +
+									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="line.data" is-disable="isDisable" ng-class="{cursor: !isDisable}"' +
 										'point-move="internalPointMove(pointData, newTick)" ' +
 										'point-click="internalPointClick(pointData)" ' +
 										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)" ' +
 										'> </animates-timelinepoint>' +
 
-									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" is-enable="isEnable"' +
+									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" is-disable="isDisable"' +
 										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
 										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
 										'event-click="internalEventClick(eventData)" ' +
@@ -305,7 +305,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				line: '=data',
 				timelineData: '=',
-				isEnable: '=',
+				isDisable: '=',
 				eventStartchange: '&',
 				eventDurationchange: '&',
 				eventClick: '&',
@@ -391,7 +391,7 @@ angular.module('animates.angular-timeline', [])
 							'<div class="tickHandlerHeader" ></div>' +
 							'<div class="tickHandlerScrollerContainer" >' +
 								'<div class="tickHandlerContainer" style="width:{{maxTick}}px;">' +
-									'<div class="tickHandler" style="left:{{tick-5}}px;"></div>' +
+									'<div class="tickHandler" style="left:{{tick-5}}px;" ng-class="{cursor: !isDisable}"></div>' +
 								'</div>' +
 							'</div>' +
 						'</div>' +
@@ -407,7 +407,7 @@ angular.module('animates.angular-timeline', [])
 								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
 									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
-										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" is-enable="isEnable"' +
+										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" maxTick="maxTick" is-disable="isDisable"' +
 											'point-move="internalPointMove(timelineData, pointData, newTick)" ' +
 											'point-click="internalPointClick(timelineData, pointData)" ' +
 											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
@@ -422,7 +422,7 @@ angular.module('animates.angular-timeline', [])
 			scope: {
 				data: '=',
 				externalTick: '=tick',
-				isEnable: '=',
+				isDisable: '=',
 				tickChange: '&',
 				eventStartchange: '&',
 				eventDurationchange: '&',
@@ -528,7 +528,7 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				tickHandlerElement.on('mousedown', function(event) {
-					if ($scope.isEnable) {
+					if (!$scope.isDisable) {
 						// Prevent default dragging of selected content
 						event.preventDefault();
 
