@@ -126,17 +126,19 @@ var module = angular.module('demo', ['animates.angular-timeline'])
         console.log(tick);
       };
 
-      $scope.onPointMove = function (timelineData, pointData, newTick) {
+      $scope.onPointMove = function (timelineData, eventData, pointData, newTick) {
         console.log('onPointMove');
         console.log(timelineData);
+        console.log(eventData);
         console.log(pointData);
         console.log(newTick);
         console.log('------');
       };
 
-      $scope.onPointClick = function (timelineData, pointData) {
+      $scope.onPointClick = function (timelineData, eventData, pointData) {
         console.log('onPointClick');
         console.log(timelineData);
+        console.log(eventData);
         console.log(pointData);
         console.log('------');
       };

@@ -27,8 +27,8 @@
     <span>{{tick}}</span>
 		<animates-timelines data="timelines" tick="tick" is-disable="disable"
       tick-change="onTickChange(tick);"
-      point-move="onPointMove(timelineData, pointData, newTick)"
-      point-click="onPointClick(timelineData, pointData)"
+      point-move="onPointMove(timelineData, eventData, pointData, newTick)"
+      point-click="onPointClick(timelineData, eventData, pointData)"
       multiplepointevent-selected="onMultiplePointEventSelected(timelineData, eventData)"
       event-startchange="onEventStartChange(timelineData, eventData, newStartTick)"
       event-durationchange="onEventDurationChange(timelineData, eventData, newDuration)"
