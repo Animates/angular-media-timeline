@@ -4,6 +4,45 @@ var module = angular.module('demo', ['animates.angular-timeline'])
   .controller('DemoTimelineGroupCtrl', function ($scope) {
     $scope.tick = 200;
     $scope.disable = false;
+    $scope.addTimeline = function () { 
+      var timeline = {
+            name : 'timeline2-name',
+            data : { id : 'timeline2-guid' },
+            lines : [
+                {
+                  events :
+                  [
+                    {
+                      name : 'animation3',
+                      data : { id : 'animation3-guid' },
+                      start : 100,
+                      duration : 100
+                    },
+                    {
+                      name : 'animation4',
+                      data : { id : 'animation4-guid' },
+                      start : 500,
+                      duration : 450
+                    }
+                  ]
+                }, {
+                  name : 'multiAnimation3',
+                  points :
+                  [
+                    {
+                      tick : 10,
+                      id : 'guid3',
+                    },
+                    {
+                      tick : 210,
+                      id : 'guid4',
+                    }
+                  ]
+                }
+              ]
+            };
+      $scope.timelines.push(timeline);
+    };
 
     $scope.timelines =
         [

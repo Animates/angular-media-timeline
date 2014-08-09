@@ -434,7 +434,7 @@ angular.module('animates.angular-timeline', [])
 				pointClick: '&',
 				multiplepointeventSelected: '&'
 			},
-			controller : function ($scope) {
+			controller : function ($scope, $element) {
 				$scope.tick = $scope.externalTick;
 				$scope.maxTick = 5000;
 
@@ -446,6 +446,22 @@ angular.module('animates.angular-timeline', [])
 						$scope.tickChange( { tick: $scope.tick });
 					}
 				});
+
+				$scope.$watchCollection('data', function() {
+					console.log('data changed');
+					$scope.updateHeaders();
+				});
+
+				$scope.updateHeaders = function () {
+					$timeout(function () {
+						angular.forEach($element[0].querySelectorAll('.elementLinesContainer'), function(timeline) {
+							var index = angular.element(timeline).attr('rel'),
+								height = angular.element(timeline)[0].offsetHeight;
+							console.log('height ' + height);
+							$element[0].querySelector('.timeline-header[rel="' + index + '"]').style.height = height - 1 + 'px';
+						});
+					});
+				};
 
 				$scope.internalTickChange = function () {
 					$scope.$apply(function (){ $scope.externalTick = $scope.tick;});
@@ -512,62 +528,53 @@ angular.module('animates.angular-timeline', [])
 					}
 				};
 			},
-			link : function ($scope, element) {
-				$timeout(function () {
-					angular.forEach(element[0].querySelectorAll('.elementLinesContainer'), function(timeline) {
-						var id = angular.element(timeline).attr('rel'),
-							height = angular.element(timeline)[0].offsetHeight;
+			link : {
+				post : function ($scope, element) {
 
-						element[0].querySelector('.timeline-header[rel="' + id + '"]').style.height = height - 1 + 'px';
+					$scope.updateHeaders();
+
+					var x, originalTick,
+						tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
+						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
+						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer'));
+
+					timelineContainerElement.on('scroll', function () {
+						tickHandlerScrollerContainerElement[0].scrollLeft = timelineContainerElement[0].scrollLeft;
 					});
-				});
 
-				var x, originalTick,
-					tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
-					timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
-					tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer'));
+					tickHandlerElement.on('mousedown', function(event) {
+						if (!$scope.isDisable) {
+							// Prevent default dragging of selected content
+							event.preventDefault();
 
-				timelineContainerElement.on('scroll', function () {
-					tickHandlerScrollerContainerElement[0].scrollLeft = timelineContainerElement[0].scrollLeft;
-				});
+							x = event.pageX - $scope.tick;
+							originalTick = $scope.tick;
 
-				tickHandlerElement.on('mousedown', function(event) {
-					if (!$scope.isDisable) {
-						// Prevent default dragging of selected content
-						event.preventDefault();
+							$document.on('mousemove', tickHandlerMove);
+							$document.on('mouseup', tickHandlerMoveEnd);
+						}
+					});
 
-						x = event.pageX - $scope.tick;
-						originalTick = $scope.tick;
+					function tickHandlerMove(event) {
+						var newTick = event.pageX - x;
 
-						$document.on('mousemove', tickHandlerMove);
-						$document.on('mouseup', tickHandlerMoveEnd);
-					}
-				});
-
-				function tickHandlerMove(event) {
-					var newTick = event.pageX - x,
-						delta;
-
-					if (newTick > 0) {
-						$scope.$apply(function () {
-							$scope.tick = newTick;
-						});
-
-						delta = originalTick - newTick;
-
-						if (delta > 5 || delta < -5) {
+						if (newTick > 0) {
+							$scope.$apply(function () {
+								$scope.tick = newTick;
+							});
+							
 							originalTick = newTick;
 							$scope.internalTickChange();
 						}
 					}
-				}
 
-				function tickHandlerMoveEnd() {
-					$document.unbind('mousemove', tickHandlerMove);
-					$document.unbind('mouseup', tickHandlerMoveEnd);
+					function tickHandlerMoveEnd() {
+						$document.unbind('mousemove', tickHandlerMove);
+						$document.unbind('mouseup', tickHandlerMoveEnd);
 
-					if (originalTick !== $scope.tick) {
-						$scope.internalTickChange();
+						if (originalTick !== $scope.tick) {
+							$scope.internalTickChange();
+						}
 					}
 				}
 			}
