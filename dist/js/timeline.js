@@ -107,12 +107,13 @@ angular.module('animates.angular-timeline', [])
 	.directive('animatesTimelineevent', function ($document) {
 		return {
 			restrict: 'E',
-			template:	'<span class="left" ng-class="{cursor: !isDisable}"></span><span class="center" ng-class="{cursor: !isDisable}"></span><span class="right" ng-class="{cursor: !isDisable}"></span>',
+			template:	'<span class="left" ng-class="{cursor: !isDisable, highlight: evt.start === timelineTick}"></span><span class="center" ng-class="{cursor: !isDisable}"></span><span class="right" ng-class="{cursor: !isDisable, highlight: (evt.start + evt.duration) === timelineTick}"></span>',
 			scope: {
 				evt: '=',
 				isDisable: '=',
 				eventStartchange: '&',
 				eventDurationchange: '&',
+				timelineTick: '=',
 				eventClick: '&'
 			},
 			link: function ($scope, element) {
@@ -297,7 +298,7 @@ angular.module('animates.angular-timeline', [])
 										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)">' +
 									'</animates-timelinepoint>' +
 
-									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" is-disable="isDisable"' +
+									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" timeline-tick="timelineTick" is-disable="isDisable" ng-class="{highlight : (timelineTick >= event.start) && (timelineTick <= (event.start + event.duration))}"' +
 										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
 										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
 										'event-click="internalEventClick(eventData)">' +
