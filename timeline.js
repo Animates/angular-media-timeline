@@ -238,6 +238,7 @@ angular.module('animates.angular-timeline', [])
 							width: (newDuration - border) + 'px'
 						});
 					}
+					$scope.$apply();
 				}
 
 				function elementExpandFrontEnd() {
@@ -273,6 +274,7 @@ angular.module('animates.angular-timeline', [])
 							width: (newDuration - border) + 'px'
 						});
 					}
+					$scope.$apply();
 				}
 
 				function elementExpandBackEnd() {
