@@ -568,7 +568,7 @@ angular.module('animates.angular-timeline', [])
 					function tickHandlerMove(event) {
 						var newTick = event.pageX - x;
 
-						if (newTick > 0) {
+						if (newTick > 0 && newTick <= $scope.maxTick) {
 							$scope.$apply(function () {
 								$scope.tick = newTick;
 							});
