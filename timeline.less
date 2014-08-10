@@ -13,13 +13,14 @@
     height: 15px;
     width: 150px;
     border-right: 1px solid black;
-    display: inline-block;
+    float: left;
   }
 
   .tickHandlerScrollerContainer {
     height: 100%;
     width: 100%;
     display: inline-block;
+    width: auto;
     position: relative;
     overflow-x: hidden;
 
@@ -61,7 +62,7 @@
   .timelinesHeaders {
     width: 150px;
     vertical-align: top;
-    display: inline-block;
+    float: left;
     background-color: gray;
     color: white;
     border-right: 1px black dashed;
@@ -71,7 +72,6 @@
       background-color : #999;
       vertical-align: middle;
       overflow: hidden;
-      position: relative;
       background: rgb(255,255,255); /* Old browsers */
       background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -93,10 +93,9 @@
 
   .timelinesContainer {
     vertical-align: top;
-    display: inline-block;
     position: relative;
-    overflow-x: auto;
-    width: 100%;
+    overflow-x: scroll;
+    width: auto;
 
     .elementLinesContainer {
       min-height: 30px;
