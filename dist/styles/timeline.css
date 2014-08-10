@@ -13,14 +13,16 @@
   height: 15px;
   width: 150px;
   border-right: 1px solid black;
-  display: inline-block;
+  float: left;
 }
 .timelines-tick-navigator .tickHandlerScrollerContainer {
   height: 100%;
-  width: 100%;
-  display: inline-block;
+  width: auto;
   position: relative;
   overflow-x: hidden;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer:hover {
+  cursor: pointer;
 }
 .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer {
   height: 15px;
@@ -40,6 +42,10 @@
 }
 .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor {
   cursor: move;
+  cursor: -webkit-grab;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor.moving {
+  cursor: -webkit-grabbing;
 }
 .timelines-group {
   width: 100%;
@@ -54,7 +60,7 @@
 .timelines-group .timelinesHeaders {
   width: 150px;
   vertical-align: top;
-  display: inline-block;
+  float: left;
   background-color: gray;
   color: white;
   border-right: 1px black dashed;
@@ -64,7 +70,6 @@
   background-color: #999;
   vertical-align: middle;
   overflow: hidden;
-  position: relative;
   background: #ffffff;
   /* Old browsers */
   background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
@@ -92,10 +97,9 @@
 }
 .timelines-group .timelinesContainer {
   vertical-align: top;
-  display: inline-block;
   position: relative;
-  overflow-x: auto;
-  width: 100%;
+  overflow-x: scroll;
+  width: auto;
 }
 .timelines-group .timelinesContainer .elementLinesContainer {
   min-height: 30px;

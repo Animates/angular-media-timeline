@@ -405,14 +405,12 @@ angular.module('animates.angular-timeline', [])
 								'</div>' +
 							'</div>' +
 						'</div>' +
-
 						'<div class="timelines-group">' +
 							'<div class="timelinesHeaders">' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline-header" data="timeline.data" rel="{{$index}}">' +
 									'<span class="timeline-header-track" title="timeline.name" >{{timeline.name}}</span>' +
 								'</div>' +
 							'</div>' +
-
 							'<div class="timelinesContainer">' +
 								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
@@ -430,6 +428,7 @@ angular.module('animates.angular-timeline', [])
 									'</div>' +
 								'</div>' +
 							'</div>' +
+
 						'</div>',
 			scope: {
 				data: '=',
@@ -560,6 +559,7 @@ angular.module('animates.angular-timeline', [])
 					}
 
 					function setTick(newTick) {
+						console.log('new' + newTick);
 						$scope.$apply(function () {
 							if (newTick < 0) {
 								$scope.tick = 0;
@@ -574,15 +574,32 @@ angular.module('animates.angular-timeline', [])
 						$scope.internalTickChange();
 					}
 
+					function getCurrentScrollPos() {
+						return timelineContainerElement[0].scrollLeft;
+					}
+
+					function getRect(element) {
+						return element[0].getBoundingClientRect();
+					}
+
 					timelineContainerElement.on('scroll', function () {
 						var tick = timelineContainerElement[0].scrollLeft;
 						scrollTime(tick);
 					});
 
+					tickHandlerScrollerContainerElement.on('mousedown', function () {
+						var rect = getRect(tickHandlerScrollerContainerElement);
+						
+						setTick(getCurrentScrollPos() + event.pageX - rect.left);
+					});
+
 					tickHandlerElement.on('mousedown', function(event) {
 						if (!$scope.isDisable) {
+							tickHandlerElement.addClass('moving');
+
 							// Prevent default dragging of selected content
 							event.preventDefault();
+							event.stopPropagation();
 
 							x = event.pageX - $scope.tick;
 							originalTick = $scope.tick;
@@ -593,28 +610,16 @@ angular.module('animates.angular-timeline', [])
 					});
 
 					function tickHandlerMove(event) {
-						function getCurrentScrollPos() {
-							return timelineContainerElement[0].scrollLeft;
-						}
-
-						function getMouseTickPos(realMouseX) {
-							return realMouseX - tickHandlerScrollerContainerElement[0].getBoundingClientRect().left;
-						}
-
-						function getRect() {
-							return tickHandlerScrollerContainerElement[0].getBoundingClientRect();
-						}
-
 						var mouseX = event.pageX,
-							relativeMouseX = getMouseTickPos(event.pageX),
-							scrollSpeed = 1,
-							containerRect = getRect();
-
+							containerRect = getRect(tickHandlerScrollerContainerElement),
+							relativeMouseX = mouseX - containerRect.left,
+							scrollSpeed = 10;
+							
 						// Chek for auto scroll when mouse is outside rect edges
-						if (mouseX > containerRect.right) {
-							scrollTime($scope.tick + scrollSpeed);
+						if (mouseX > (containerRect.right)) {
+							scrollTime(getCurrentScrollPos() + scrollSpeed);
 						} else if (mouseX < containerRect.left){
-							scrollTime($scope.tick - scrollSpeed);
+							scrollTime(getCurrentScrollPos() - scrollSpeed);
 						}
 
 						// Move the tick to the new position
@@ -628,6 +633,8 @@ angular.module('animates.angular-timeline', [])
 						if (originalTick !== $scope.tick) {
 							$scope.internalTickChange();
 						}
+
+						tickHandlerElement.removeClass('moving');
 					}
 				}
 			}

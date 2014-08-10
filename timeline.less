@@ -18,11 +18,12 @@
 
   .tickHandlerScrollerContainer {
     height: 100%;
-    width: 100%;
-    display: inline-block;
     width: auto;
     position: relative;
     overflow-x: hidden;
+    &:hover {
+      cursor: pointer;
+    }
 
     .tickHandlerContainer {
       height: 15px;
@@ -42,8 +43,15 @@
         border-top: 12px solid blue;
       }
 
-      .tickHandler.cursor {
-        cursor: move;
+      .tickHandler {
+        &.cursor {
+          cursor: move;
+          cursor: -webkit-grab;
+
+          &.moving {
+            cursor: -webkit-grabbing;          
+          }
+        }
       }
     }
   }
