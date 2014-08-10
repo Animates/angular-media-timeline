@@ -548,8 +548,35 @@ angular.module('animates.angular-timeline', [])
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer'));
 
+					function scrollTime(toTick) {
+						// Validate bounds
+						if ((toTick < 0) || (toTick > $scope.maxTick)) {
+							return;
+						}
+
+						// Scroll timelines and the current tick marker
+						timelineContainerElement[0].scrollLeft = toTick;
+						tickHandlerScrollerContainerElement[0].scrollLeft = toTick;
+					}
+
+					function setTick(newTick) {
+						$scope.$apply(function () {
+							if (newTick < 0) {
+								$scope.tick = 0;
+							} else if (newTick > $scope.maxTick) {
+								$scope.tick = $scope.maxTick;
+							} else {
+								$scope.tick = newTick;
+							}
+						});
+
+						originalTick = newTick;
+						$scope.internalTickChange();
+					}
+
 					timelineContainerElement.on('scroll', function () {
-						tickHandlerScrollerContainerElement[0].scrollLeft = timelineContainerElement[0].scrollLeft;
+						var tick = timelineContainerElement[0].scrollLeft;
+						scrollTime(tick);
 					});
 
 					tickHandlerElement.on('mousedown', function(event) {
@@ -566,16 +593,32 @@ angular.module('animates.angular-timeline', [])
 					});
 
 					function tickHandlerMove(event) {
-						var newTick = event.pageX - x;
-
-						if (newTick > 0 && newTick <= $scope.maxTick) {
-							$scope.$apply(function () {
-								$scope.tick = newTick;
-							});
-
-							originalTick = newTick;
-							$scope.internalTickChange();
+						function getCurrentScrollPos() {
+							return timelineContainerElement[0].scrollLeft;
 						}
+
+						function getMouseTickPos(realMouseX) {
+							return realMouseX - tickHandlerScrollerContainerElement[0].getBoundingClientRect().left;
+						}
+
+						function getRect() {
+							return tickHandlerScrollerContainerElement[0].getBoundingClientRect();
+						}
+
+						var mouseX = event.pageX,
+							relativeMouseX = getMouseTickPos(event.pageX),
+							scrollSpeed = 1,
+							containerRect = getRect();
+
+						// Chek for auto scroll when mouse is outside rect edges
+						if (mouseX > containerRect.right) {
+							scrollTime($scope.tick + scrollSpeed);
+						} else if (mouseX < containerRect.left){
+							scrollTime($scope.tick - scrollSpeed);
+						}
+
+						// Move the tick to the new position
+						setTick(getCurrentScrollPos() + relativeMouseX);
 					}
 
 					function tickHandlerMoveEnd() {
