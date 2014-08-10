@@ -549,7 +549,7 @@ angular.module('animates.angular-timeline', [])
 
 					function scrollTime(toTick) {
 						// Validate bounds
-						if ((toTick < 0) || (toTick > $scope.maxTick)) {
+						if ((toTick < 0)) {
 							return;
 						}
 
@@ -559,12 +559,12 @@ angular.module('animates.angular-timeline', [])
 					}
 
 					function setTick(newTick) {
-						console.log('new' + newTick);
 						$scope.$apply(function () {
 							if (newTick < 0) {
 								$scope.tick = 0;
-							} else if (newTick > $scope.maxTick) {
+							} else if (newTick >= $scope.maxTick) {
 								$scope.tick = $scope.maxTick;
+								$scope.maxTick += 100;
 							} else {
 								$scope.tick = newTick;
 							}
