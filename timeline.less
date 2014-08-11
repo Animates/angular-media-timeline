@@ -1,292 +1,296 @@
-.timetooltip {
-  visibility: hidden;
-  white-space: nowrap;
-  position: fixed;
-  background-color: lightgreen;
-  border-radius: 5px;
-  border: 1px solid green;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 3px;
-  z-index: 2003;
+animates-timelines {
+  display: block;
 
-    &.active {
-      visibility: visible;
-    }
-}
+  .timetooltip {
+    visibility: hidden;
+    white-space: nowrap;
+    position: fixed;
+    background-color: lightgreen;
+    border-radius: 5px;
+    border: 1px solid green;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px;
+    z-index: 2003;
 
-.timelines-tick-navigator {
-  width : 100%;
-  height: 15px;
-  border: 1px solid black;
-  border-bottom: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-  white-space: nowrap;
-  background-color: #F0F0F5;
+      &.active {
+        visibility: visible;
+      }
+  }
 
-  .tickHandlerHeader {
+  .timelines-tick-navigator {
+    width : 100%;
     height: 15px;
-    width: 150px;
-    border-right: 1px solid black;
-    float: left;
-  }
-
-  .tickHandlerScrollerContainer {
-    height: 100%;
-    width: auto;
-    position: relative;
+    border: 1px solid black;
+    border-bottom: 0;
     overflow-x: hidden;
-    &:hover {
-      cursor: pointer;
-    }
-
-    .tickHandlerContainer {
-      height: 15px;
-      width: 100%;
-      position: relative;
-      display: block;
-
-    .ruler {
-      background: rgba(255,255,255,1);
-      color: #444;
-      font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
-      font-size: 12px;
-      line-height: 14px;
-      overflow: hidden;
-
-      div {
-        background: #444;  
-      }
-
-      .tickLabel {
-        position: absolute;
-        top: 0px;
-        width: 1px;
-        height: 100%;
-        text-indent: 1px;
-      }
-
-      .tickMajor {
-        position: absolute;
-        bottom: 0px;
-        width: 1px;
-        height: 6px;
-      }
-
-      .tickMinor {
-        position: absolute;
-        bottom: 0px;
-        width: 1px;
-        height: 4px;
-      }
-    }
-      .tickHandler
-      {
-        position: absolute;
-        top: 3px;
-        z-index: 2001;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 12px solid blue;
-      }
-
-      .tickHandler {
-        &.cursor {
-          cursor: move;
-          cursor: -webkit-grab;
-
-          &.moving {
-            cursor: -webkit-grabbing;          
-          }
-        }
-      }
-    }
-  }
-}
-
-.timelines-group {
-  width : 100%;
-  height: 100%;
-  border: 1px solid black;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  position: relative;
-  white-space: nowrap;
-  background-color: #F0F0F5;
-
-  .timelinesHeaders {
-    width: 150px;
-    vertical-align: top;
-    float: left;
-    background-color: gray;
-    color: white;
-    border-right: 1px black dashed;
-
-    .timeline-header {
-      border-top: 1px dotted lightgray;
-      background-color : #999;
-      vertical-align: middle;
-      overflow: hidden;
-      background: rgb(255,255,255); /* Old browsers */
-      background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-
-      span {
-        top: 50%;
-        height: 18px;
-        margin-top: -9px; /* = height/2 */
-        padding-left: 5px;
-        color: #888;
-      }
-    }
-  }
-
-  .timelinesContainer {
-    vertical-align: top;
+    overflow-y: hidden;
     position: relative;
-    overflow-x: scroll;
-    width: auto;
+    white-space: nowrap;
+    background-color: #F0F0F5;
 
-    .elementLinesContainer {
-      min-height: 30px;
+    .tickHandlerHeader {
+      height: 15px;
+      width: 150px;
+      border-right: 1px solid black;
+      float: left;
     }
 
-    .verticalLine {
-      z-index: 2000;
+    .tickHandlerScrollerContainer {
       height: 100%;
-      position: absolute;
-      width: 1px;
-      top: 0px;
-      background-color: blue;
-      box-shadow: 0px 0px 3px #888897;
-    }
-
-    animates-timeline {
-      display : block;
-      position : relative;
-      border-top: 1px dotted grey;
-
-      .timeline-content {
-        overflow: hidden;
-        white-space: nowrap;
-        height: 100%;
+      width: auto;
+      position: relative;
+      overflow-x: hidden;
+      &:hover {
+        cursor: pointer;
       }
 
-      &.events {
-        height: 30px;
-        max-height: 30px;
-        min-height: 30px;
+      .tickHandlerContainer {
+        height: 15px;
+        width: 100%;
+        position: relative;
+        display: block;
 
-        .timeline-event {
-          top: 2px;
-          display: inline-block;
+      .ruler {
+        background: rgba(255,255,255,1);
+        color: #444;
+        font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
+        font-size: 12px;
+        line-height: 14px;
+        overflow: hidden;
+
+        div {
+          background: #444;  
+        }
+
+        .tickLabel {
           position: absolute;
-          height: 80%;
-          background-color: #F0FFE0;
-          border: 1px solid #7A995C;
+          top: 0px;
+          width: 1px;
+          height: 100%;
+          text-indent: 1px;
+        }
 
-          &.highlight {
-            top: 1px;
-            -webkit-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            -moz-box-shadow:    2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            box-shadow:         2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            z-index: 100;
-          }
+        .tickMajor {
+          position: absolute;
+          bottom: 0px;
+          width: 1px;
+          height: 6px;
+        }
 
-          .left {
-            left: 0;
-            display: inline-block;
-            height: 100%;
-            width: 15px;
-
-            &.highlight {
-              background: rgb(255,48,25); /* Old browsers */
-              background: -moz-linear-gradient(left,  rgba(255,48,25,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-              background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,48,25,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-              background: -webkit-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-              background: -o-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-              background: -ms-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
-              background: linear-gradient(to right,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
-              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-            }
-
-            &.cursor {
-              cursor: ew-resize;
-            }
-          }
-
-          .center {
-            display: inline-block;
-            height: 100%;
-
-            &.cursor {
-              cursor: move;
-            }
-          }
-
-          .right {
-            right: 0;
-            display: inline-block;
-            height: 100%;
-            width: 15px;
-
-            &.highlight {
-              background: rgb(255,255,255); /* Old browsers */
-              background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,48,25,1) 100%); /* FF3.6+ */
-              background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,48,25,1))); /* Chrome,Safari4+ */
-              background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* Chrome10+,Safari5.1+ */
-              background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* Opera 11.10+ */
-              background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* IE10+ */
-              background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* W3C */
-              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ff3019',GradientType=1 ); /* IE6-9 */
-            }
-
-            &.cursor {
-              cursor: ew-resize;
-            }
-          }
+        .tickMinor {
+          position: absolute;
+          bottom: 0px;
+          width: 1px;
+          height: 4px;
         }
       }
-
-      &.points {
-        height: 15px;
-        max-height: 15px;
-        min-height: 15px;
-        background-color: #DFE1E8;
-
-        animates-timelinepoint {
-          background-color: #FF4D4D;
-          border-radius: 10px;
-          height: 8px;
-          width: 8px;
+        .tickHandler
+        {
           position: absolute;
           top: 3px;
-          margin-left: -5px;
-          border: 1px solid white;
+          z-index: 2001;
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 12px solid blue;
+        }
 
-          &.highlight {
-            height: 10px;
-            width: 10px;
-            top: 1px;
-            margin-left: -7px;
-            -webkit-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            -moz-box-shadow:    2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            box-shadow:         2px 2px 2px 0px rgba(49, 50, 50, 0.75);
-            z-index: 100;
+        .tickHandler {
+          &.cursor {
+            cursor: move;
+            cursor: -webkit-grab;
+
+            &.moving {
+              cursor: -webkit-grabbing;          
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .timelines-group {
+    width : 100%;
+    height: 100%;
+    border: 1px solid black;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    white-space: nowrap;
+    background-color: #F0F0F5;
+
+    .timelinesHeaders {
+      width: 150px;
+      vertical-align: top;
+      float: left;
+      background-color: gray;
+      color: white;
+      border-right: 1px black dashed;
+
+      .timeline-header {
+        border-top: 1px dotted lightgray;
+        background-color : #999;
+        vertical-align: middle;
+        overflow: hidden;
+        background: rgb(255,255,255); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+        span {
+          top: 50%;
+          height: 18px;
+          margin-top: -9px; /* = height/2 */
+          padding-left: 5px;
+          color: #888;
+        }
+      }
+    }
+
+    .timelinesContainer {
+      vertical-align: top;
+      position: relative;
+      overflow-x: scroll;
+      width: auto;
+
+      .elementLinesContainer {
+        min-height: 30px;
+      }
+
+      .verticalLine {
+        z-index: 2000;
+        height: 100%;
+        position: absolute;
+        width: 1px;
+        top: 0px;
+        background-color: blue;
+        box-shadow: 0px 0px 3px #888897;
+      }
+
+      animates-timeline {
+        display : block;
+        position : relative;
+        border-top: 1px dotted grey;
+
+        .timeline-content {
+          overflow: hidden;
+          white-space: nowrap;
+          height: 100%;
+        }
+
+        &.events {
+          height: 30px;
+          max-height: 30px;
+          min-height: 30px;
+
+          .timeline-event {
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            height: 80%;
+            background-color: #F0FFE0;
+            border: 1px solid #7A995C;
+
+            &.highlight {
+              top: 1px;
+              -webkit-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              -moz-box-shadow:    2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              box-shadow:         2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              z-index: 100;
+            }
+
+            .left {
+              left: 0;
+              display: inline-block;
+              height: 100%;
+              width: 15px;
+
+              &.highlight {
+                background: rgb(255,48,25); /* Old browsers */
+                background: -moz-linear-gradient(left,  rgba(255,48,25,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,48,25,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+                background: linear-gradient(to right,  rgba(255,48,25,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+              }
+
+              &.cursor {
+                cursor: ew-resize;
+              }
+            }
+
+            .center {
+              display: inline-block;
+              height: 100%;
+
+              &.cursor {
+                cursor: move;
+              }
+            }
+
+            .right {
+              right: 0;
+              display: inline-block;
+              height: 100%;
+              width: 15px;
+
+              &.highlight {
+                background: rgb(255,255,255); /* Old browsers */
+                background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,48,25,1) 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,48,25,1))); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* IE10+ */
+                background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,48,25,1) 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ff3019',GradientType=1 ); /* IE6-9 */
+              }
+
+              &.cursor {
+                cursor: ew-resize;
+              }
+            }
           }
         }
 
-        animates-timelinepoint.cursor {
-          cursor: move;
+        &.points {
+          height: 15px;
+          max-height: 15px;
+          min-height: 15px;
+          background-color: #DFE1E8;
+
+          animates-timelinepoint {
+            background-color: #FF4D4D;
+            border-radius: 10px;
+            height: 8px;
+            width: 8px;
+            position: absolute;
+            top: 3px;
+            margin-left: -5px;
+            border: 1px solid white;
+
+            &.highlight {
+              height: 10px;
+              width: 10px;
+              top: 1px;
+              margin-left: -7px;
+              -webkit-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              -moz-box-shadow:    2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              box-shadow:         2px 2px 2px 0px rgba(49, 50, 50, 0.75);
+              z-index: 100;
+            }
+          }
+
+          animates-timelinepoint.cursor {
+            cursor: move;
+          }
         }
       }
     }
