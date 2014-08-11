@@ -48,6 +48,40 @@
       position: relative;
       display: block;
 
+    .ruler {
+      background: rgba(255,255,255,1);
+      color: #444;
+      font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
+      font-size: 12px;
+      line-height: 14px;
+      overflow: hidden;
+
+      div {
+        background: #444;  
+      }
+
+      .tickLabel {
+        position: absolute;
+        top: 0px;
+        width: 1px;
+        height: 100%;
+        text-indent: 1px;
+      }
+
+      .tickMajor {
+        position: absolute;
+        bottom: 0px;
+        width: 1px;
+        height: 6px;
+      }
+
+      .tickMinor {
+        position: absolute;
+        bottom: 0px;
+        width: 1px;
+        height: 4px;
+      }
+    }
       .tickHandler
       {
         position: absolute;

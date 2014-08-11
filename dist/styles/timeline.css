@@ -45,6 +45,36 @@
   position: relative;
   display: block;
 }
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler {
+  background: #ffffff;
+  color: #444;
+  font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+  overflow: hidden;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler div {
+  background: #444;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickLabel {
+  position: absolute;
+  top: 0px;
+  width: 1px;
+  height: 100%;
+  text-indent: 1px;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMajor {
+  position: absolute;
+  bottom: 0px;
+  width: 1px;
+  height: 6px;
+}
+.timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMinor {
+  position: absolute;
+  bottom: 0px;
+  width: 1px;
+  height: 4px;
+}
 .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler {
   position: absolute;
   top: 3px;

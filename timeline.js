@@ -402,6 +402,7 @@ angular.module('animates.angular-timeline', [])
 							'<div class="tickHandlerHeader" ></div>' +
 							'<div class="tickHandlerScrollerContainer" >' +
 								'<div class="tickHandlerContainer" style="width:{{maxTick}}px;">' +
+									'<div class="ruler"></div>' +
 									'<div class="tickHandler" style="left:{{tick-5}}px;" ng-class="{cursor: !isDisable}"></div>' +
 								'</div>' +
 							'</div>' +
@@ -445,8 +446,35 @@ angular.module('animates.angular-timeline', [])
 				tickRatio: '='
 			},
 			controller : function ($scope, $element) {
+				var ruleElement = angular.element($element[0].querySelector('.ruler'));
+
 				$scope.tick = $scope.externalTick;
 				$scope.maxTick = 5000;
+
+
+				$scope.drawRule =  function () {
+					// Horizontal ruler ticks
+					var tickLabelPos = 0,
+						width = $scope.maxTick,
+						newTickLabel = '',
+						interval = $scope.tickRatio ? $scope.tickRatio / 10 : 5;
+
+					ruleElement[0].innerHTML = '';
+
+					while ( tickLabelPos <= width ) {
+						if ((( tickLabelPos ) %50 ) === 0 ) {
+							newTickLabel = '<div class="tickLabel"></div>';
+							ruleElement.append(angular.element(newTickLabel).css( 'left', tickLabelPos+'px' ));
+						} else if ((( tickLabelPos) %10 ) === 0 ) {
+							newTickLabel = '<div class="tickMajor"></div>';
+							ruleElement.append(angular.element(newTickLabel).css('left',tickLabelPos+'px'));
+						} else if ((( tickLabelPos) %5 ) === 0 ) {
+							newTickLabel = '<div class="tickMinor"></div>';
+							ruleElement.append(angular.element(newTickLabel).css( 'left', tickLabelPos+'px' ));
+						}
+						tickLabelPos = (tickLabelPos + interval);
+					}//hz ticks
+				};
 
 				$scope.$watch('externalTick', function() {
 
@@ -455,6 +483,10 @@ angular.module('animates.angular-timeline', [])
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
 					}
+				});
+
+				$scope.$watch('maxTick', function () {
+					$scope.drawRule();
 				});
 
 				$scope.$watchCollection('data', function() {
@@ -571,6 +603,7 @@ angular.module('animates.angular-timeline', [])
 				post : function ($scope, element) {
 
 					$scope.updateHeaders();
+					$scope.drawRule();
 
 					var x, originalTick,
 						tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
