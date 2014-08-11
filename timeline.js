@@ -609,8 +609,7 @@ angular.module('animates.angular-timeline', [])
 						tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer')),
-						tooltipElement = angular.element(element[0].querySelector('.timetooltip')),
-						tickIsMoving = false;
+						tooltipElement = angular.element(element[0].querySelector('.timetooltip'));
 
 					function scrollTime(toTick) {
 						// Validate bounds
@@ -647,6 +646,19 @@ angular.module('animates.angular-timeline', [])
 						return element[0].getBoundingClientRect();
 					}
 
+					function followMouse (evt) {
+						var rect = getRect(tickHandlerScrollerContainerElement),
+							currentTick = getCurrentScrollPos() + evt.pageX - rect.left;
+
+						tooltipElement.html($scope.formatTime(currentTick));
+						tooltipElement.css({
+								'left' : (evt.pageX - (tooltipElement.prop('offsetWidth') / 2)) + 'px',
+								'top': (evt.pageY - 5 - tooltipElement.prop('offsetHeight')) + 'px'
+							});
+
+						tooltipElement.addClass('active');
+					}
+					
 					timelineContainerElement.on('scroll', function () {
 						var tick = timelineContainerElement[0].scrollLeft;
 						scrollTime(tick);
@@ -661,33 +673,18 @@ angular.module('animates.angular-timeline', [])
 					});
 
 					tickHandlerScrollerContainerElement.on('mouseover', function (event) {
-						function followMouse (evt) {
-							var rect = getRect(tickHandlerScrollerContainerElement),
-								currentTick = getCurrentScrollPos() + evt.pageX - rect.left;
-
-							tooltipElement.html($scope.formatTime(currentTick));
-							tooltipElement.css({
-									'left' : (evt.pageX - (tooltipElement.prop('offsetWidth') / 2)) + 'px',
-									'top': (evt.pageY - 5 - tooltipElement.prop('offsetHeight')) + 'px'
-								});
-
-							tooltipElement.addClass('active');
-						}
 						followMouse(event);
 						$document.on('mousemove', followMouse);
 					});
 
 					tickHandlerScrollerContainerElement.on('mouseout', function () {
-						if (!tickIsMoving) {
-							$document.unbind('mousemove');
-						}
+						$document.unbind('mousemove', followMouse);
 
 						tooltipElement.removeClass('active');
 					});
 
 					tickHandlerElement.on('mousedown', function(event) {
 						if (!$scope.isDisable) {
-							tickIsMoving = true;
 							tickHandlerElement.addClass('moving');
 
 							// Prevent default dragging of selected content
@@ -728,7 +725,6 @@ angular.module('animates.angular-timeline', [])
 						}
 
 						tickHandlerElement.removeClass('moving');
-						tickIsMoving = false;
 					}
 				}
 			}
