@@ -1,3 +1,20 @@
+.timetooltip {
+  visibility: hidden;
+  white-space: nowrap;
+  position: fixed;
+  background-color: lightgreen;
+  border-radius: 5px;
+  border: 1px solid green;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px;
+  z-index: 2003;
+
+    &.active {
+      visibility: visible;
+    }
+}
+
 .timelines-tick-navigator {
   width : 100%;
   height: 15px;
