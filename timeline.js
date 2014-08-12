@@ -526,7 +526,12 @@ angular.module('animates.angular-timeline', [])
 							var index = angular.element(timeline).attr('rel'),
 								height = angular.element(timeline)[0].offsetHeight;
 
-							$element[0].querySelector('.timeline-header[rel="' + index + '"]').style.height = height - 1 + 'px';
+							angular.element($element[0]
+								.querySelector('.timeline-header[rel="' + index + '"]'))
+									.css({
+									'line-height' : height + 'px',
+									'height' : height + 'px'
+								});
 						});
 					});
 				};
@@ -658,7 +663,7 @@ angular.module('animates.angular-timeline', [])
 
 						tooltipElement.addClass('active');
 					}
-					
+
 					timelineContainerElement.on('scroll', function () {
 						var tick = timelineContainerElement[0].scrollLeft;
 						scrollTime(tick);
