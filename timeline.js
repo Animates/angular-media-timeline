@@ -410,7 +410,7 @@ angular.module('animates.angular-timeline', [])
 						'<div class="timelines-group">' +
 							'<div class="timelinesHeaders">' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline-header" data="timeline.data" rel="{{$index}}">' +
-									'<span class="timeline-header-track" title="timeline.name" >{{timeline.name}}</span>' +
+									'<span class="timeline-header-track" title="{{timeline.name}}" >{{timeline.name}}</span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="timelinesContainer">' +
