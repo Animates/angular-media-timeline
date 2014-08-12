@@ -614,7 +614,13 @@ angular.module('animates.angular-timeline', [])
 						tickHandlerElement = angular.element(element[0].querySelector('.tickHandler')),
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer')),
-						tooltipElement = angular.element(element[0].querySelector('.timetooltip'));
+						tooltipElement = angular.element(element[0].querySelector('.timetooltip')),
+						bodyElement = angular.element($document[0].querySelector('body'));
+
+
+					// append the tooltip to the body so it can be display above any element.
+					tooltipElement.remove();
+					bodyElement.append(tooltipElement);
 
 					function scrollTime(toTick) {
 						// Validate bounds
