@@ -101,6 +101,10 @@ angular.module('animates.angular-timeline', [])
 							pointData : point.data,
 							newTick : point.tick
 						});
+
+						$scope.multiplepointeventSelected({
+							eventData : $scope.eventData
+						});
 					}
 				}
 			}
@@ -410,7 +414,7 @@ angular.module('animates.angular-timeline', [])
 						'<div class="timelines-group">' +
 							'<div class="timelinesHeaders">' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline-header" data="timeline.data" rel="{{$index}}">' +
-									'<span class="timeline-header-track" title="timeline.name" >{{timeline.name}}</span>' +
+									'<span class="timeline-header-track" title="{{timeline.name}}" >{{timeline.name}}</span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="timelinesContainer">' +
@@ -526,7 +530,12 @@ angular.module('animates.angular-timeline', [])
 							var index = angular.element(timeline).attr('rel'),
 								height = angular.element(timeline)[0].offsetHeight;
 
-							$element[0].querySelector('.timeline-header[rel="' + index + '"]').style.height = height - 1 + 'px';
+							angular.element($element[0]
+								.querySelector('.timeline-header[rel="' + index + '"]'))
+									.css({
+									'line-height' : height + 'px',
+									'height' : height + 'px'
+								});
 						});
 					});
 				};
@@ -610,7 +619,13 @@ angular.module('animates.angular-timeline', [])
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer')),
 						tooltipElement = angular.element(element[0].querySelector('.timetooltip')),
-						tickIsMoving = false;
+						timelinesHeadersElement = angular.element(element[0].querySelector('.timelinesHeaders')),
+						bodyElement = angular.element($document[0].querySelector('body'));
+
+
+					// append the tooltip to the body so it can be display above any element.
+					tooltipElement.remove();
+					bodyElement.append(tooltipElement);
 
 					function scrollTime(toTick) {
 						// Validate bounds
@@ -647,6 +662,19 @@ angular.module('animates.angular-timeline', [])
 						return element[0].getBoundingClientRect();
 					}
 
+					function followMouse (evt) {
+						var rect = getRect(tickHandlerScrollerContainerElement),
+							currentTick = getCurrentScrollPos() + evt.pageX - rect.left;
+
+						tooltipElement.html($scope.formatTime(currentTick));
+						tooltipElement.css({
+								'left' : (evt.pageX - (tooltipElement.prop('offsetWidth') / 2)) + 'px',
+								'top': (evt.pageY - 5 - tooltipElement.prop('offsetHeight')) + 'px'
+							});
+
+						tooltipElement.addClass('active');
+					}
+
 					timelineContainerElement.on('scroll', function () {
 						var tick = timelineContainerElement[0].scrollLeft;
 						scrollTime(tick);
@@ -655,39 +683,24 @@ angular.module('animates.angular-timeline', [])
 					tickHandlerScrollerContainerElement.on('mousedown', function () {
 						if (!$scope.isDisable) {
 							var rect = getRect(tickHandlerScrollerContainerElement);
-						
+
 							setTick(getCurrentScrollPos() + event.pageX - rect.left);
 						}
 					});
 
 					tickHandlerScrollerContainerElement.on('mouseover', function (event) {
-						function followMouse (evt) {
-							var rect = getRect(tickHandlerScrollerContainerElement),
-								currentTick = getCurrentScrollPos() + evt.pageX - rect.left;
-
-							tooltipElement.html($scope.formatTime(currentTick));
-							tooltipElement.css({
-									'left' : (evt.pageX - (tooltipElement.prop('offsetWidth') / 2)) + 'px',
-									'top': (evt.pageY - 5 - tooltipElement.prop('offsetHeight')) + 'px'
-								});
-
-							tooltipElement.addClass('active');
-						}
 						followMouse(event);
 						$document.on('mousemove', followMouse);
 					});
 
 					tickHandlerScrollerContainerElement.on('mouseout', function () {
-						if (!tickIsMoving) {
-							$document.unbind('mousemove');
-						}
+						$document.unbind('mousemove', followMouse);
 
 						tooltipElement.removeClass('active');
 					});
 
 					tickHandlerElement.on('mousedown', function(event) {
 						if (!$scope.isDisable) {
-							tickIsMoving = true;
 							tickHandlerElement.addClass('moving');
 
 							// Prevent default dragging of selected content
@@ -707,7 +720,7 @@ angular.module('animates.angular-timeline', [])
 							containerRect = getRect(tickHandlerScrollerContainerElement),
 							relativeMouseX = mouseX - containerRect.left,
 							scrollSpeed = 10;
-							
+
 						// Chek for auto scroll when mouse is outside rect edges
 						if (mouseX > (containerRect.right)) {
 							scrollTime(getCurrentScrollPos() + scrollSpeed);
@@ -728,7 +741,6 @@ angular.module('animates.angular-timeline', [])
 						}
 
 						tickHandlerElement.removeClass('moving');
-						tickIsMoving = false;
 					}
 				}
 			}

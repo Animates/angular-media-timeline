@@ -101,6 +101,10 @@ angular.module('animates.angular-timeline', [])
 							pointData : point.data,
 							newTick : point.tick
 						});
+
+						$scope.multiplepointeventSelected({
+							eventData : $scope.eventData
+						});
 					}
 				}
 			}
@@ -679,7 +683,7 @@ angular.module('animates.angular-timeline', [])
 					tickHandlerScrollerContainerElement.on('mousedown', function () {
 						if (!$scope.isDisable) {
 							var rect = getRect(tickHandlerScrollerContainerElement);
-						
+
 							setTick(getCurrentScrollPos() + event.pageX - rect.left);
 						}
 					});
@@ -716,7 +720,7 @@ angular.module('animates.angular-timeline', [])
 							containerRect = getRect(tickHandlerScrollerContainerElement),
 							relativeMouseX = mouseX - containerRect.left,
 							scrollSpeed = 10;
-							
+
 						// Chek for auto scroll when mouse is outside rect edges
 						if (mouseX > (containerRect.right)) {
 							scrollTime(getCurrentScrollPos() + scrollSpeed);
