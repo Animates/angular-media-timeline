@@ -25,7 +25,8 @@
     <input type='checkbox' ng-model='disable'></input>
 
     <span>{{tick}}</span>
-		<animates-timelines data="timelines" tick="tick" is-disable="disable"
+    <button ng-click="addTimeline()">Add timeline</button>
+		<animates-timelines data="timelines" style="height: 200px;" tick="tick" is-disable="disable"
       tick-change="onTickChange(tick);"
       point-move="onPointMove(timelineData, eventData, pointData, newTick)"
       point-click="onPointClick(timelineData, eventData, pointData)"
@@ -35,8 +36,6 @@
       event-click="onEventClick(timelineData, eventData)"
       tick-ratio="30";
     ></animates-timelines>
-
-    <button ng-click="addTimeline()">Add timeline</button>
 	</div>
 
   <!-- bower:js -->

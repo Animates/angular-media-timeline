@@ -615,6 +615,7 @@ angular.module('animates.angular-timeline', [])
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer')),
 						tooltipElement = angular.element(element[0].querySelector('.timetooltip')),
+						timelinesHeadersElement = angular.element(element[0].querySelector('.timelinesHeaders')),
 						bodyElement = angular.element($document[0].querySelector('body'));
 
 
