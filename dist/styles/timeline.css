@@ -97,7 +97,8 @@ animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tick
 }
 animates-timelines .timelines-group {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 16px);
+  /* remove header height, its a patch */
   border: 1px solid black;
   overflow-x: hidden;
   overflow-y: scroll;
