@@ -461,7 +461,7 @@ angular.module('animates.angular-timeline', [])
 					var tickLabelPos = 0,
 						width = $scope.maxTick,
 						newTickLabel = '',
-						interval = $scope.tickRatio ? $scope.tickRatio / 10 : 5;
+						interval = 5;
 
 					ruleElement[0].innerHTML = '';
 
@@ -498,11 +498,7 @@ angular.module('animates.angular-timeline', [])
 				});
 
 				$scope.getTime = function (tick) {
-					if ($scope.tickRatio) {
-						return (tick / $scope.tickRatio);
-					} else {
-						return '00:00:00';
-					}
+					return (tick * $scope.tickRatio / 1000);
 				};
 
 				$scope.formatTime = function (tick) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jslint>
 	<file name="timeline.js">
-		<issue line="622" char="36" reason="&apos;timelinesHeadersElement&apos; is defined but never used." evidence="						timelinesHeadersElement = angular.element(element[0].querySelector(&apos;.timelinesHeaders&apos;))," severity="W" />
+		<issue line="618" char="36" reason="&apos;timelinesHeadersElement&apos; is defined but never used." evidence="						timelinesHeadersElement = angular.element(element[0].querySelector(&apos;.timelinesHeaders&apos;))," severity="W" />
 	</file>
 </jslint>
