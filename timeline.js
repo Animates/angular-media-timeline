@@ -45,7 +45,8 @@ angular.module('animates.angular-timeline', [])
 				},
 				post: function ($scope, element) {
 					var point = $scope.point,
-						x, originalZIndex;
+						x, originalZIndex,
+						originalTick;
 
 					element.on('click', function () {
 							if (!$scope.isDisable) {
@@ -53,15 +54,12 @@ angular.module('animates.angular-timeline', [])
 									eventData : $scope.eventData,
 									pointData : point.data
 								});
-
-								$scope.multiplepointeventSelected({
-									eventData : $scope.eventData
-								});
 							}
 						});
 
 					element.on('mousedown', function(event) {
 						if (!$scope.isDisable) {
+							originalTick = point.tick;
 							// Prevent default dragging of selected content
 							event.preventDefault();
 
@@ -96,11 +94,13 @@ angular.module('animates.angular-timeline', [])
 							'z-index': originalZIndex
 						});
 
-						$scope.pointMove({
-							eventData : $scope.eventData,
-							pointData : point.data,
-							newTick : point.tick
-						});
+						if (point.tick !== originalTick) {
+							$scope.pointMove({
+								eventData : $scope.eventData,
+								pointData : point.data,
+								newTick : point.tick
+							});
+						}
 
 						$scope.multiplepointeventSelected({
 							eventData : $scope.eventData
@@ -124,7 +124,7 @@ angular.module('animates.angular-timeline', [])
 			},
 			link: function ($scope, element) {
 				var evt = $scope.evt,
-					x, originalDuration, originalZIndex, originalEndPosition,
+					x, originalDuration, originalStart, originalZIndex, originalEndPosition,
 					leftElement = angular.element(element[0].querySelector('.left')),
 					centerElement = angular.element(element[0].querySelector('.center')),
 					rightElement = angular.element(element[0].querySelector('.right')),
@@ -155,6 +155,7 @@ angular.module('animates.angular-timeline', [])
 						event.preventDefault();
 						x = event.pageX - evt.start;
 						originalDuration = evt.duration;
+						originalStart = evt.start;
 						originalZIndex = element.css('z-index');
 						originalEndPosition = evt.start + evt.duration;
 
@@ -190,6 +191,7 @@ angular.module('animates.angular-timeline', [])
 						event.preventDefault();
 						x = event.pageX - evt.start;
 						originalDuration = evt.duration;
+						originalStart = evt.start;
 						originalZIndex = element.css('z-index');
 
 						element.css({
@@ -220,10 +222,12 @@ angular.module('animates.angular-timeline', [])
 						'z-index': originalZIndex
 					});
 
-					$scope.eventStartchange({
-						eventData : evt.data,
-						newStartTick : evt.start
-					});
+					if (evt.start !== originalStart) {
+						$scope.eventStartchange({
+							eventData : evt.data,
+							newStartTick : evt.start
+						});
+					}
 				}
 
 				function elementExpandFront(event) {
@@ -253,15 +257,19 @@ angular.module('animates.angular-timeline', [])
 						'z-index': originalZIndex
 					});
 
-					$scope.eventStartchange({
-						eventData : evt.data,
-						newStartTick : evt.start
-					});
+					if (evt.start !== originalStart) {
+						$scope.eventStartchange({
+							eventData : evt.data,
+							newStartTick : evt.start
+						});
+					}
 
-					$scope.eventDurationchange({
-						eventData : evt.data,
-						newDuration : evt.duration
-					});
+					if (evt.duration !== originalDuration){
+						$scope.eventDurationchange({
+							eventData : evt.data,
+							newDuration : evt.duration
+						});
+					}
 				}
 
 				function elementExpandBack(event) {
@@ -289,10 +297,12 @@ angular.module('animates.angular-timeline', [])
 						'z-index': originalZIndex
 					});
 
-					$scope.eventDurationchange({
-						eventData : $scope.evt.data,
-						newDuration : evt.duration
-					});
+					if (evt.duration !== originalDuration){
+						$scope.eventDurationchange({
+							eventData : $scope.evt.data,
+							newDuration : evt.duration
+						});
+					}
 				}
 			}
 		};
@@ -615,7 +625,6 @@ angular.module('animates.angular-timeline', [])
 						timelineContainerElement = angular.element(element[0].querySelector('.timelinesContainer')),
 						tickHandlerScrollerContainerElement = angular.element(element[0].querySelector('.tickHandlerScrollerContainer')),
 						tooltipElement = angular.element(element[0].querySelector('.timetooltip')),
-						timelinesHeadersElement = angular.element(element[0].querySelector('.timelinesHeaders')),
 						bodyElement = angular.element($document[0].querySelector('body'));
 
 
