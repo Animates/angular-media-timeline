@@ -132,7 +132,7 @@ module.exports = function(grunt) {
 					cwd: '<%= timeline.dist %>',
 					dest: 'build/output/timeline',
 					src: [
-					'**/*'
+						'**/*'
 					]
 				}]
 			}
