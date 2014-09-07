@@ -124,6 +124,17 @@ module.exports = function(grunt) {
 		copy: {
 			dist : {
 				files : [{ expand: true, src: ['timeline.js'], dest: 'dist/js/' }]
+			},
+			build: {
+				files: [{
+					expand: true,
+					dot: true,
+					cwd: '<%= timeline.dist %>',
+					dest: 'build/output/timeline',
+					src: [
+					'**/*'
+					]
+				}]
 			}
 		},
 		cssmin: {
@@ -176,6 +187,6 @@ module.exports = function(grunt) {
 		]);
 	});
 
-	grunt.registerTask('ci-build', ['package']);
+	grunt.registerTask('ci-build', ['package', 'copy:build']);
 	grunt.registerTask('default', ['serve']);
 };
