@@ -1,21 +1,37 @@
 {
-  "name": "angular-timeline-demo",
-  "version": "0.0.0",
+  "name": "angular-media-timeline",
   "authors": [
+    "Nicolas Bello Camilletti",
+    "Pablo Biasotti"
+  ],
+  "description": "Angular directive to create media timelines",
+  "keywords": [
+    "timeline",
+    "angular",
+    "directive",
     "animates"
   ],
-  "description": "Demo",
-  "keywords": [],
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "build",
+    "examples",
+    "Gruntfile.js",
+    "main.css",
+    "package.json",
+    "timeline.js",
+    "timeline.less"
   ],
   "dependencies": {
     "angular": "~1.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "homepage": "https://github.com/nbellocam/angular-media-timeline",
+  "main": [
+    "dist/js/timeline.js",
+    "dist/styles/timeline.css"
+  ],
+  "moduleType": []
 }
