@@ -1,0 +1,10 @@
+.timeline-event.fade-out {
+  background-color: red;
+}
+.timeline-event.fade-in {
+  background-color: lightgreen;
+}
+
+animates-timelines {
+  padding: 10px 0;
+}
