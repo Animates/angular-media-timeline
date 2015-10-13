@@ -17,16 +17,17 @@
 	</style>
 
 </head>
-<body ng-app="demo" >
-	<div ng-controller="DemoTimelineGroupCtrl" style="height:100px;">
-		<button ng-click="tick = 100;"></button>
+<body ng-app="mt.demo" >
+	<div ng-controller="DemoMediaTimelineController" style="height:100px;">
+		<button ng-click="tick = 100;">Reset</button>
+
     <input type='number' ng-change='internalTickChange()' ng-model='tick'></input>
 
-    <input type='checkbox' ng-model='disable'></input>
+    <label for="disable">Disable</label>
+    <input type='checkbox' ng-model='disable' name="disable"></input>
 
-    <span>{{tick}}</span>
-    <button ng-click="addTimeline()">Add timeline</button>
-		<animates-timelines data="timelines" style="height: 200px;" tick="tick" is-disable="disable"
+    <span>Tick: {{tick}}</span>
+		<mt-timelines data="timelines" style="height: 200px;" tick="tick" is-disable="disable"
       tick-change="onTickChange(tick);"
       point-move="onPointMove(timelineData, eventData, pointData, newTick)"
       point-click="onPointClick(timelineData, eventData, pointData)"
@@ -35,7 +36,7 @@
       event-durationchange="onEventDurationChange(timelineData, eventData, newDuration)"
       event-click="onEventClick(timelineData, eventData)"
       tick-ratio="30";
-    ></animates-timelines>
+    ></mt-timelines>
     <button ng-click="addTimeline()">Add timeline</button>
 	</div>
 

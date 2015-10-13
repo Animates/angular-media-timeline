@@ -22,8 +22,8 @@ TODO
 
 'use strict';
 
-angular.module('animates.angular-timeline', [])
-	.directive('animatesTimelinepoint', function ($document) {
+angular.module('mt.media-timeline', [])
+	.directive('mtPoint', function ($document) {
 		return {
 			restrict: 'E',
 			template:	'',
@@ -110,7 +110,7 @@ angular.module('animates.angular-timeline', [])
 			}
 		};
 	})
-	.directive('animatesTimelineevent', function ($document) {
+	.directive('mtEvent', function ($document) {
 		return {
 			restrict: 'E',
 			template:	'<span class="left" ng-class="{cursor: !isDisable, highlight: evt.start === timelineTick}"></span><span class="center" ng-class="{cursor: !isDisable}"></span><span class="right" ng-class="{cursor: !isDisable, highlight: (evt.start + evt.duration) === timelineTick}"></span>',
@@ -307,21 +307,21 @@ angular.module('animates.angular-timeline', [])
 			}
 		};
 	})
-	.directive('animatesTimeline', function () {
+	.directive('mtTimeline', function () {
 		return {
 			restrict: 'E',
 			template:	'<div class="timeline-content">' +
-									'<animates-timelinepoint class="timeline-point" ng-repeat="point in line.points" point="point" event-data="$parent.line.data" is-disable="isDisable" ng-class="{cursor: !isDisable, highlight: timelineTick === point.tick}" timeline-tick="timelineTick"' +
+									'<mt-point class="timeline-point" ng-repeat="point in line.points" point="point" event-data="$parent.line.data" is-disable="isDisable" ng-class="{cursor: !isDisable, highlight: timelineTick === point.tick}" timeline-tick="timelineTick"' +
 										'point-move="internalPointMove(eventData, pointData, newTick)" ' +
 										'point-click="internalPointClick(eventData, pointData)" ' +
 										'multiplepointevent-selected="internalMultiplePointEventSelected(eventData)">' +
-									'</animates-timelinepoint>' +
+									'</mt-point>' +
 
-									'<animates-timelineevent class="timeline-event" ng-repeat="event in line.events" evt="event" timeline-tick="timelineTick" is-disable="isDisable" ng-class="{highlight : (timelineTick >= event.start) && (timelineTick <= (event.start + event.duration))}"' +
+									'<mt-event class="timeline-event" ng-repeat="event in line.events" evt="event" timeline-tick="timelineTick" is-disable="isDisable" ng-class="{highlight : (timelineTick >= event.start) && (timelineTick <= (event.start + event.duration))}"' +
 										'event-startchange="internalEventStartChange(eventData, newStartTick)" ' +
 										'event-durationchange="internalEventDurationChange(eventData, newDuration)" ' +
 										'event-click="internalEventClick(eventData)">' +
-									' </animates-timelineevent>' +
+									' </mt-event>' +
 								'</div>',
 			scope: {
 				line: '=data',
@@ -407,7 +407,7 @@ angular.module('animates.angular-timeline', [])
 			}
 		};
 	})
-	.directive('animatesTimelines', function ($timeout, $document) {
+	.directive('mtTimelines', function ($timeout, $document) {
 		return {
 			restrict: 'E',
 			template:
@@ -432,14 +432,14 @@ angular.module('animates.angular-timeline', [])
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
 									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
 
-										'<animates-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" timeline-tick="tick" max-tick="maxTick" is-disable="isDisable"' +
+										'<mt-timeline ng-repeat="line in timeline.lines" data="line" timeline-data="timeline.data" timeline-tick="tick" max-tick="maxTick" is-disable="isDisable"' +
 											'point-move="internalPointMove(timelineData, eventData, pointData, newTick)" ' +
 											'point-click="internalPointClick(timelineData, eventData, pointData)" ' +
 											'multiplepointevent-selected="internalMultiplePointEventSelected(timelineData, eventData)" ' +
 											'event-startchange="internalEventStartChange(timelineData, eventData, newStartTick)" ' +
 											'event-durationchange="internalEventDurationChange(timelineData, eventData, newDuration)" ' +
 											'event-click="internalEventClick(timelineData, eventData)">' +
-										'</animates-timeline>' +
+										'</mt-timeline>' +
 
 									'</div>' +
 								'</div>' +

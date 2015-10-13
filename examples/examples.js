@@ -1,10 +1,10 @@
 'use strict';
 
-var module = angular.module('demo', ['animates.angular-timeline'])
-  .controller('DemoTimelineGroupCtrl', function ($scope) {
+var module = angular.module('mt.demo', ['mt.media-timeline'])
+  .controller('DemoMediaTimelineController', function ($scope) {
     $scope.tick = 200;
     $scope.disable = false;
-    $scope.addTimeline = function () { 
+    $scope.addTimeline = function () {
       var timeline = {
             name : 'timeline2-name',
             data : { id : 'timeline2-guid' },

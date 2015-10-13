@@ -13,10 +13,10 @@
 .timetooltip.active {
   visibility: visible;
 }
-animates-timelines {
+mt-timelines {
   display: block;
 }
-animates-timelines .timelines-tick-navigator {
+mt-timelines .timelines-tick-navigator {
   width: 100%;
   height: 15px;
   border: 1px solid black;
@@ -27,28 +27,28 @@ animates-timelines .timelines-tick-navigator {
   white-space: nowrap;
   background-color: #F0F0F5;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerHeader {
+mt-timelines .timelines-tick-navigator .tickHandlerHeader {
   height: 15px;
   width: 150px;
   border-right: 1px solid black;
   float: left;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer {
   height: 100%;
   width: auto;
   position: relative;
   overflow-x: hidden;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer:hover {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer:hover {
   cursor: pointer;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer {
   height: 15px;
   width: 100%;
   position: relative;
   display: block;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler {
   background: #ffffff;
   color: #444;
   font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
@@ -56,29 +56,29 @@ animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tick
   line-height: 14px;
   overflow: hidden;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler div {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler div {
   background: #444;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickLabel {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickLabel {
   position: absolute;
   top: 0px;
   width: 1px;
   height: 100%;
   text-indent: 1px;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMajor {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMajor {
   position: absolute;
   bottom: 0px;
   width: 1px;
   height: 6px;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMinor {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .ruler .tickMinor {
   position: absolute;
   bottom: 0px;
   width: 1px;
   height: 4px;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler {
   position: absolute;
   top: 3px;
   z-index: 2001;
@@ -88,14 +88,14 @@ animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tick
   border-right: 6px solid transparent;
   border-top: 12px solid blue;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor {
   cursor: move;
   cursor: -webkit-grab;
 }
-animates-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor.moving {
+mt-timelines .timelines-tick-navigator .tickHandlerScrollerContainer .tickHandlerContainer .tickHandler.cursor.moving {
   cursor: -webkit-grabbing;
 }
-animates-timelines .timelines-group {
+mt-timelines .timelines-group {
   width: 100%;
   height: calc(100% - 16px);
   /* remove header height, its a patch */
@@ -106,7 +106,7 @@ animates-timelines .timelines-group {
   white-space: nowrap;
   background-color: #F0F0F5;
 }
-animates-timelines .timelines-group .timelinesHeaders {
+mt-timelines .timelines-group .timelinesHeaders {
   width: 150px;
   vertical-align: top;
   float: left;
@@ -115,7 +115,7 @@ animates-timelines .timelines-group .timelinesHeaders {
   border-right: 1px black dashed;
   min-height: 100%;
 }
-animates-timelines .timelines-group .timelinesHeaders .timeline-header {
+mt-timelines .timelines-group .timelinesHeaders .timeline-header {
   background-color: #999;
   vertical-align: middle;
   overflow: hidden;
@@ -136,7 +136,7 @@ animates-timelines .timelines-group .timelinesHeaders .timeline-header {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
   /* IE6-9 */
 }
-animates-timelines .timelines-group .timelinesHeaders .timeline-header span {
+mt-timelines .timelines-group .timelinesHeaders .timeline-header span {
   top: 50%;
   height: 18px;
   margin-top: -9px;
@@ -144,17 +144,17 @@ animates-timelines .timelines-group .timelinesHeaders .timeline-header span {
   padding-left: 5px;
   color: #888;
 }
-animates-timelines .timelines-group .timelinesContainer {
+mt-timelines .timelines-group .timelinesContainer {
   vertical-align: top;
   position: relative;
   overflow-x: scroll;
   width: auto;
   min-height: 100%;
 }
-animates-timelines .timelines-group .timelinesContainer .elementLinesContainer {
+mt-timelines .timelines-group .timelinesContainer .elementLinesContainer {
   min-height: 30px;
 }
-animates-timelines .timelines-group .timelinesContainer .verticalLine {
+mt-timelines .timelines-group .timelinesContainer .verticalLine {
   z-index: 2000;
   height: 100%;
   position: absolute;
@@ -163,22 +163,22 @@ animates-timelines .timelines-group .timelinesContainer .verticalLine {
   background-color: blue;
   box-shadow: 0px 0px 3px #888897;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline {
+mt-timelines .timelines-group .timelinesContainer mt-timeline {
   display: block;
   position: relative;
   border-top: 1px dotted grey;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline .timeline-content {
+mt-timelines .timelines-group .timelinesContainer mt-timeline .timeline-content {
   overflow: hidden;
   white-space: nowrap;
   height: 100%;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events {
   height: 30px;
   max-height: 30px;
   min-height: 30px;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event {
   top: 2px;
   display: inline-block;
   position: absolute;
@@ -186,20 +186,20 @@ animates-timelines .timelines-group .timelinesContainer animates-timeline.events
   background-color: #F0FFE0;
   border: 1px solid #7A995C;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event.highlight {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event.highlight {
   top: 1px;
   -webkit-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
   -moz-box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
   box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
   z-index: 100;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .left {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .left {
   left: 0;
   display: inline-block;
   height: 100%;
   width: 15px;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .left.highlight {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .left.highlight {
   background: #ff3019;
   /* Old browsers */
   background: -moz-linear-gradient(left, #ff3019 0%, #ffffff 100%);
@@ -217,23 +217,23 @@ animates-timelines .timelines-group .timelinesContainer animates-timeline.events
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .left.cursor {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .left.cursor {
   cursor: ew-resize;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .center {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .center {
   display: inline-block;
   height: 100%;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .center.cursor {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .center.cursor {
   cursor: move;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .right {
   right: 0;
   display: inline-block;
   height: 100%;
   width: 15px;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right.highlight {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .right.highlight {
   background: #ffffff;
   /* Old browsers */
   background: -moz-linear-gradient(left, #ffffff 0%, #ff3019 100%);
@@ -251,16 +251,16 @@ animates-timelines .timelines-group .timelinesContainer animates-timeline.events
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ff3019', GradientType=1);
   /* IE6-9 */
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.events .timeline-event .right.cursor {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.events .timeline-event .right.cursor {
   cursor: ew-resize;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.points {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.points {
   height: 15px;
   max-height: 15px;
   min-height: 15px;
   background-color: #DFE1E8;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.points animates-timelinepoint {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.points mt-point {
   background-color: #FF4D4D;
   border-radius: 10px;
   height: 8px;
@@ -270,7 +270,7 @@ animates-timelines .timelines-group .timelinesContainer animates-timeline.points
   margin-left: -5px;
   border: 1px solid white;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.points animates-timelinepoint.highlight {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.points mt-point.highlight {
   height: 10px;
   width: 10px;
   top: 1px;
@@ -280,6 +280,6 @@ animates-timelines .timelines-group .timelinesContainer animates-timeline.points
   box-shadow: 2px 2px 2px 0px rgba(49, 50, 50, 0.75);
   z-index: 100;
 }
-animates-timelines .timelines-group .timelinesContainer animates-timeline.points animates-timelinepoint.cursor {
+mt-timelines .timelines-group .timelinesContainer mt-timeline.points mt-point.cursor {
   cursor: move;
 }
