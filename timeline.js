@@ -417,7 +417,7 @@ angular.module('mt.media-timeline', [])
 							'<div class="tickHandlerScrollerContainer" >' +
 								'<div class="tickHandlerContainer" style="width:{{maxTick}}px;">' +
 									'<div class="ruler"></div>' +
-									'<div class="tickHandler" style="left:{{tick-5}}px;" ng-class="{cursor: !isDisable}"></div>' +
+									'<div class="tickHandler" ng-class="{cursor: !isDisable}"></div>' +
 								'</div>' +
 							'</div>' +
 						'</div>' +
@@ -428,7 +428,7 @@ angular.module('mt.media-timeline', [])
 								'</div>' +
 							'</div>' +
 							'<div class="timelinesContainer">' +
-								'<div class="verticalLine" style="left:{{tick}}px"></div>' +
+								'<div class="verticalLine"></div>' +
 								'<div ng-repeat="timeline in data" class="timeline-part timeline" data="timeline.data">' +
 									'<div class="elementLinesContainer" rel="{{$index}}" style="width:{{maxTick}}px;">' +
 
@@ -465,7 +465,6 @@ angular.module('mt.media-timeline', [])
 				$scope.tick = $scope.externalTick;
 				$scope.maxTick = 5000;
 
-
 				$scope.drawRule =  function () {
 					// Horizontal ruler ticks
 					var tickLabelPos = 0,
@@ -491,8 +490,9 @@ angular.module('mt.media-timeline', [])
 				};
 
 				$scope.$watch('externalTick', function() {
-
 					$scope.tick = $scope.externalTick;
+
+					$scope.updateTickHandler();
 
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
@@ -546,9 +546,22 @@ angular.module('mt.media-timeline', [])
 					});
 				};
 
+				$scope.updateTickHandler = function () {
+					angular.element($element[0]
+						.querySelector('.tickHandler')).css({
+							left: ($scope.tick - 5) + 'px'
+						});
+
+					angular.element($element[0]
+						.querySelector('.verticalLine')).css({
+							left: $scope.tick + 'px'
+						});
+				};
 
 				$scope.internalTickChange = function () {
 					$scope.$apply(function (){ $scope.externalTick = $scope.tick;});
+
+					$scope.updateTickHandler();
 
 					if ($scope.tickChange) {
 						$scope.tickChange( { tick: $scope.tick });
