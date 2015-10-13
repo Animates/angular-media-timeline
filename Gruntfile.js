@@ -9,6 +9,8 @@ module.exports = function(grunt) {
 	// Time how long tasks take. Can help when optimizing build times
 	require('time-grunt')(grunt);
 
+	grunt.loadNpmTasks('grunt-wiredep');
+
 	// Define the configuration for all the tasks
 	grunt.initConfig({
 
@@ -145,30 +147,22 @@ module.exports = function(grunt) {
 		},
 
 		// Automatically inject Bower components into the app
-		'bowerInstall': {
-			target: {
+		wiredep: {
+	    task: {
+        // Point to the files that should be updated when
+        // you run `grunt wiredep`
+        src: [
+          '<%= timeline.examples %>/index.html'
+        ],
 
-		    // Point to the files that should be updated when
-		    // you run `grunt bower-install`
-		    src: [
-		      '<%= timeline.examples %>/index.html'
-		    ],
+        options: {
+          // See wiredep's configuration documentation for the options
+          // you may pass:
 
-		    // Optional:
-		    // ---------
-		    //cwd: '',
-		    //dependencies: true,
-		    //devDependencies: false,
-		    //exclude: [],
-		    //fileTypes: {},
-		    ignorePath: '<%= timeline.examples %>/'
-		    //overrides: {}
-		  }
+          // https://github.com/taptapship/wiredep#configuration
+        }
+	    }
 		}
-	});
-
-	grunt.registerTask('install-dep', function () {
-		grunt.task.run('bowerInstall');
 	});
 
 	grunt.registerTask('package', ['jshint:build', 'less:development', 'cssmin', 'uglify:build', 'copy:dist']);
@@ -180,7 +174,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run([
 			'clean:dist',
-			'install-dep',
+			'wiredep',
 			'package',
 			'connect:livereload',
 			'watch'
